@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AssetItem should render correctly 1`] = `
+<div
+  className="assets-item"
+>
+  <div
+    className="assets-item-title"
+  >
+    <AssetAvatar
+      symbol="BTC"
+    />
+    <strong>
+      BTC
+    </strong>
+  </div>
+  <div
+    className="assets-item-details"
+  >
+    <div
+      className="assets-item-details-price"
+    >
+      $
+      6500
+    </div>
+    <div
+      className="assets-item-details-cap"
+    >
+      $
+      1202021
+    </div>
+  </div>
+  <div
+    className="assets-item-graph"
+  >
+    graph;)
+  </div>
+</div>
+`;

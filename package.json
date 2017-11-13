@@ -1,0 +1,38 @@
+{
+  "name": "hackathon-crypto",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "react": "^16.1.0",
+    "react-dom": "^16.1.0",
+    "react-redux": "^5.0.6",
+    "react-scripts": "1.0.17",
+    "redux": "^3.7.2"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test:lint:js": "standard | standard-reporter --stylish",
+    "test:lint:css": "stylelint \"**/*.css\"",
+    "test:unit": "react-scripts test --env=jsdom",
+    "test": "npm run test:lint:js && npm run test:lint:css && npm run test:unit",
+    "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "enzyme": "^3.1.1",
+    "enzyme-adapter-react-16": "^1.0.4",
+    "enzyme-to-json": "^3.2.2",
+    "puppeteer": "^0.13.0",
+    "redux-devtools-extension": "^2.13.2",
+    "redux-mock-store": "^1.3.0",
+    "standard": "^10.0.3",
+    "stylelint": "^8.2.0",
+    "stylelint-config-standard": "^17.0.0"
+  },
+  "standard": {
+    "ignore": [
+      "src/registerServiceWorker.js",
+      "src/__tests__/smoke.spec.js"
+    ]
+  }
+}
