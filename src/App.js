@@ -15,9 +15,14 @@ export const App = ({markets, loading, hasError, loadingPrices, prices}) => (
         ? <div>
             loading...
           </div>
-        : <AssetList
-          markets={markets}
-          prices={prices} />
+        : <div className='app-inner'>
+          <AssetList
+            markets={markets}
+            prices={prices} />
+          <a href='#' className='app-btn-invest'>
+            Invest money
+          </a>
+        </div>
       }
     </div>
   </div>
