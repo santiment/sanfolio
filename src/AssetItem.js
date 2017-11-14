@@ -1,5 +1,6 @@
 import React from 'react'
 import './AssetItem.css'
+import { formatNumber } from './utils/formatting'
 
 const AssetAvatar = ({symbol}) => {
   return (
@@ -21,8 +22,8 @@ const AssetItem = ({asset}) => {
         <strong>{asset.title}</strong>
       </div>
       <div className='assets-item-details'>
-        <div className='assets-item-details-price'>${PRICE}</div>
-        <div className='assets-item-details-cap'>${asset.cap}</div>
+        <div className='assets-item-details-price'>{formatNumber(PRICE, 'USD')}</div>
+        <div className='assets-item-details-cap'>{formatNumber(asset.cap, 'USD')}</div>
       </div>
       <div className='assets-item-graph'>
         graph;)

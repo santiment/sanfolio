@@ -1,28 +1,55 @@
-.App {
+@keyframes fadein {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -100px, 0);
+    box-shadow: 0 10px 50px rgba(0, 0, 0, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+    box-shadow: 0 10px 50px rgba(0, 0, 0, 0.3);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: scaleY(0);
+  }
+
+  to {
+    transform: scaleY(1);
+  }
+}
+
+.app {
   text-align: center;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+.wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  width: 420px;
+  height: 620px;
+  background-color: #fff;
+  /*overflow: hidden;*/
+  overflow: scroll;
+  border-radius: 5px;
+  box-shadow: 0 10px 50px rgba(0, 0, 0, 0.3);
+  animation: fadein 1s;
 }
 
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
-}
-
-.App-title {
-  font-size: 1.5em;
-}
-
-.App-intro {
-  font-size: large;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+@media screen and (max-width: 500px) {
+  .wrapper {
+    width: 100%;
+    height: 100vh;
+    margin: 0;
+    overflow: scroll;
+    box-shadow: none;
+    animation: none;
+  }
 }

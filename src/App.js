@@ -5,9 +5,11 @@ import AssetList from './AssetList'
 import './App.css'
 
 export const App = ({markets}) => (
-  <div className='App'>
-    <AssetList markets={markets} />
-    <IntentForm />
+  <div className='wrapper'>
+    <div className='app'>
+      <AssetList markets={markets} />
+      <IntentForm />
+    </div>
   </div>
 )
 
