@@ -3,7 +3,6 @@ import { combineReducers } from 'redux'
 export const markets = (state = {isLoading: true, error: false, items: []}, action) => {
   switch (action.type) {
     case 'SUCCESS_MARKETS':
-      console.log(state)
       return {
         ...state,
         isLoading: false,
@@ -18,7 +17,6 @@ export const markets = (state = {isLoading: true, error: false, items: []}, acti
 export const prices = (state = {isLoading: true, error: false, items: []}, action) => {
   switch (action.type) {
     case 'SUCCESS_PRICES':
-      console.log(state)
       return {
         ...state,
         isLoading: false,
@@ -30,12 +28,11 @@ export const prices = (state = {isLoading: true, error: false, items: []}, actio
   }
 }
 
-export const intentForm = (state = {amountMoney: 0}, action) => {
+export const intentForm = (state = {money: 0}, action) => {
   switch (action.type) {
     case 'INPUT_AMOUNT_MONEY':
       return {
-        ...state,
-        amountMoney: action.output
+        money: action.money
       }
     default:
       return state

@@ -5,25 +5,37 @@ import {
   compose,
   lifecycle
 } from 'recompose'
+import {
+  Route,
+  Link
+} from 'react-router-dom'
 import AssetList from './AssetList'
+import IntentForm from './IntentForm'
 import './App.css'
 
 export const App = ({markets, loading, hasError, loadingPrices, prices}) => (
   <div className='wrapper'>
     <div className='app'>
-      {loading
-        ? <div>
-            loading...
-          </div>
-        : <div className='app-inner'>
-          <AssetList
-            markets={markets}
-            prices={prices} />
-          <a href='#' className='app-btn-invest'>
-            Invest money
-          </a>
+      <Route exact path={'/invest'} render={() => (
+        <IntentForm />
+      )} />
+      <Route exact path={'/'} render={() => (
+        <div>
+          {loading
+            ? <div>
+                loading...
+              </div>
+            : <div className='app-inner'>
+              <AssetList
+                markets={markets}
+                prices={prices} />
+              <Link className='app-btn-invest' to={'/invest'}>
+                Invest money
+              </Link>
+            </div>
+          }
         </div>
-      }
+      )} />
     </div>
   </div>
 )

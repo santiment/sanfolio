@@ -2,6 +2,6 @@
 
 exports[`reducers  set amount for the first income money 1`] = `
 Object {
-  "amountMoney": 49,
+  "money": undefined,
 }
 `;
