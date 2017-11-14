@@ -9,4 +9,4 @@ Cryptofolio
 - [ ] Count % of market for every asset
 - [ ] Add mobile menu
 - [ ] Input Income Money + Open new route with personal folio
-- [ ] Draw graphs
+- [x] Draw graphs
