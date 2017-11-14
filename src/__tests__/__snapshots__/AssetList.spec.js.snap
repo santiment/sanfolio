@@ -8,7 +8,9 @@ exports[`AssetList should render correctly 1`] = `
     asset={
       Object {
         "cap": 1202021,
+        "history": null,
         "index": 0,
+        "price": null,
         "title": "BTC",
       }
     }
@@ -18,7 +20,9 @@ exports[`AssetList should render correctly 1`] = `
     asset={
       Object {
         "cap": 500000,
+        "history": null,
         "index": 1,
+        "price": null,
         "title": "ETH",
       }
     }

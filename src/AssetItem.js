@@ -11,9 +11,6 @@ const AssetAvatar = ({symbol}) => {
   )
 }
 
-// FIXME:
-const PRICE = 6500
-
 const AssetItem = ({asset}) => {
   return (
     <div className='assets-item'>
@@ -22,7 +19,9 @@ const AssetItem = ({asset}) => {
         <strong>{asset.title}</strong>
       </div>
       <div className='assets-item-details'>
-        <div className='assets-item-details-price'>{formatNumber(PRICE, 'USD')}</div>
+        {asset.price
+          ? <div className='assets-item-details-price'>{formatNumber(asset.price, 'USD')}</div>
+          : <div className='assets-item-details-price'>---</div>}
         <div className='assets-item-details-cap'>{formatNumber(asset.cap, 'USD')}</div>
       </div>
       <div className='assets-item-graph'>
