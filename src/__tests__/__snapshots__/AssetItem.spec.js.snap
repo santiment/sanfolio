@@ -31,7 +31,9 @@ exports[`AssetItem should render correctly 1`] = `
   <div
     className="assets-item-graph"
   >
-    graph;)
+    <div>
+      ---
+    </div>
   </div>
 </div>
 `;

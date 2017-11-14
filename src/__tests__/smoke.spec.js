@@ -39,14 +39,19 @@ afterAll(async () => {
 /* eslint-disable no-use-before-define */
 test('Landing page loads', async () => {
   await page.goto('http://localhost:3000')
-  await page.screenshot({path: '.screenshots/market-list.png'})
   await mobilePage.goto('http://localhost:3000')
+  //FIXME: waitforselector instead of seconds
+  await page.waitFor(2000)
+  await mobilePage.waitFor(2000)
+  await page.screenshot({path: '.screenshots/market-list.png'})
   await mobilePage.screenshot({path: '.screenshots/market-list-mobile.png'})
 })
 
 test('AssetsList', async () => {
   await page.goto('http://localhost:3000')
   await mobilePage.goto('http://localhost:3000')
+  await page.waitFor(2000)
+  await mobilePage.waitFor(2000)
 
   // AssetItem
   const assetItem = await page.$('.assets-item')
