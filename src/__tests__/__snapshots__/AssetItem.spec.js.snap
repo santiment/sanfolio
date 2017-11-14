@@ -20,7 +20,7 @@ exports[`AssetItem should render correctly 1`] = `
     <div
       className="assets-item-details-price"
     >
-      $6,500.00
+      ---
     </div>
     <div
       className="assets-item-details-cap"
