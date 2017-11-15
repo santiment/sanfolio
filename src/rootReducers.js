@@ -47,8 +47,26 @@ export const intentForm = (state = {money: 0}, action) => {
   }
 }
 
+export const portfolios = (state = {}, action) => {
+  switch (action.type) {
+    case 'CREATE_NEW_PORTFOLIO':
+      return {
+        ...state,
+        selected: 1,
+        items: [{[action.name]: {
+          name: action.name,
+          items: action.items,
+          money: action.money
+        }}]
+      }
+    default:
+      return state
+  }
+}
+
 export default combineReducers({
   markets,
   prices,
-  intentForm
+  intentForm,
+  portfolios
 })

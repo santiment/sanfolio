@@ -12,6 +12,7 @@ import {
 } from 'react-router-dom'
 import AssetList from './AssetList'
 import IntentForm from './IntentForm'
+import PortfoliosPage from './PorfoliosPage'
 import './App.css'
 
 export const App = ({markets, loading, hasError, loadingPrices, prices, life}) => (
@@ -20,6 +21,9 @@ export const App = ({markets, loading, hasError, loadingPrices, prices, life}) =
       <div className='container'>
         <Route exact path={'/invest'} render={() => (
           <IntentForm />
+        )} />
+        <Route exact path={'/portfolios'} render={() => (
+          <PortfoliosPage />
         )} />
         <Route exact path={'/'} render={() => (
           <div>
@@ -57,7 +61,7 @@ export const App = ({markets, loading, hasError, loadingPrices, prices, life}) =
         <Link
           className='menu-link'
           activeClassName='menu-link-active'
-          to='invest'>
+          to='portfolios'>
           My folio
         </Link>
       </div>

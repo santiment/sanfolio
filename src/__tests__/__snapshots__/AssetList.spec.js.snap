@@ -4,7 +4,7 @@ exports[`AssetList should render correctly 1`] = `
 <div
   className="assets-list"
 >
-  <AssetItem
+  <pure(withState(lifecycle(AssetItem)))
     asset={
       Object {
         "cap": 1202021,
@@ -16,7 +16,7 @@ exports[`AssetList should render correctly 1`] = `
     }
     key="0"
   />
-  <AssetItem
+  <pure(withState(lifecycle(AssetItem)))
     asset={
       Object {
         "cap": 500000,
