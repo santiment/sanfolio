@@ -23,6 +23,14 @@ export const prices = (state = {isLoading: true, error: false, items: []}, actio
         error: false,
         items: action.payload.data.data
       }
+    case 'FIRE_TICKET':
+      return {
+        ...state,
+        life: {
+          ...state.life,
+          [action.title]: action.price.toFixed(2)
+        }
+      }
     default:
       return state
   }

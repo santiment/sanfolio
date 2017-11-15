@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import ReconnectingWebsocket from 'reconnecting-websocket'
 import {
   pure,
   compose,
@@ -7,14 +8,13 @@ import {
 } from 'recompose'
 import {
   Route,
-  //Link,
   NavLink as Link
 } from 'react-router-dom'
 import AssetList from './AssetList'
 import IntentForm from './IntentForm'
 import './App.css'
 
-export const App = ({markets, loading, hasError, loadingPrices, prices}) => (
+export const App = ({markets, loading, hasError, loadingPrices, prices, life}) => (
   <div className='wrapper'>
     <div className='app'>
       <div className='container'>
@@ -30,7 +30,8 @@ export const App = ({markets, loading, hasError, loadingPrices, prices}) => (
               : <div className='app-inner'>
                 <AssetList
                   markets={markets}
-                  prices={prices} />
+                  prices={prices}
+                  life={life} />
                 <Link className='app-btn-invest' to={'/invest'}>
                   Invest money
                 </Link>
@@ -70,8 +71,25 @@ const mapStateToProps = state => {
     loading: state.markets.isLoading,
     hasError: state.markets.error,
     loadingPrices: state.prices.isLoading,
-    prices: state.prices.items
+    prices: state.prices.items,
+    life: state.prices.life
   }
+}
+
+const WS_URL = 'wss://api.lionshare.capital'
+
+const connectToWebsocket = dispatch => {
+  this.websocket = new ReconnectingWebsocket(WS_URL, [], {})
+  this.websocket.addEventListener('message', message => {
+    const data = JSON.parse(message.data)
+    const title = data.cryptoCurrency
+    const price = parseFloat(data.price)
+    dispatch({
+      type: 'FIRE_TICKET',
+      title,
+      price
+    })
+  })
 }
 
 const mapDispatchToProps = dispatch => {
@@ -95,6 +113,9 @@ const mapDispatchToProps = dispatch => {
           }
         }
       })
+    },
+    realtimeUpdates: () => {
+      connectToWebsocket(dispatch)
     }
   }
 }
@@ -109,6 +130,7 @@ const enhance = compose(
     componentDidMount () {
       this.props.retrievePrices()
       this.props.retrieveMarkets()
+      this.props.realtimeUpdates()
     }
   })
 )

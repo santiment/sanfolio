@@ -26,6 +26,8 @@
   display: flex;
   flex-direction: column;
   text-align: left;
+  background-color: white;
+  transition: 0.3s ease;
 }
 
 .assets-item .assets-item-details .assets-item-details-price {
@@ -35,4 +37,8 @@
 .assets-item .assets-item-details .assets-item-details-cap {
   color: #8a8a8a;
   font-weight: 300;
+}
+
+.asset-item-details-price-flash {
+  background-color: yellow;
 }

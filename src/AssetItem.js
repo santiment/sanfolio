@@ -1,4 +1,10 @@
 import React from 'react'
+import {
+  pure,
+  compose,
+  lifecycle,
+  withState
+} from 'recompose'
 import { Line } from 'react-chartjs-2'
 import './AssetItem.css'
 import { formatNumber } from './utils/formatting'
@@ -24,7 +30,7 @@ const getChartDataFromHistory = (history = []) => {
   }
 }
 
-const AssetItem = ({asset}) => {
+const AssetItem = ({asset, flash}) => {
   const chartData = getChartDataFromHistory(asset.history)
   const chartOptions = {
     responsive: true,
@@ -55,6 +61,9 @@ const AssetItem = ({asset}) => {
       }]
     }
   }
+  const priceClsName = flash
+    ? 'assets-item-details-price asset-item-details-price-flash'
+    : 'assets-item-details-price'
   return (
     <div className='assets-item'>
       <div className='assets-item-title'>
@@ -63,7 +72,7 @@ const AssetItem = ({asset}) => {
       </div>
       <div className='assets-item-details'>
         {asset.price
-          ? <div className='assets-item-details-price'>{formatNumber(asset.price, 'USD')}</div>
+          ? <div className={priceClsName}>{formatNumber(asset.price, 'USD')}</div>
           : <div className='assets-item-details-price'>---</div>}
         <div className='assets-item-details-cap'>{formatNumber(asset.cap, 'USD')}</div>
       </div>
@@ -83,4 +92,22 @@ const AssetItem = ({asset}) => {
   )
 }
 
-export default AssetItem
+const enhance = compose(
+  pure,
+  withState('flash', '_', false),
+  lifecycle({
+    componentWillReceiveProps (newProps) {
+      if (this.props.asset.price !== newProps.asset.price) {
+        this.setState({flash: true})
+      }
+      this.timer = setTimeout(() => {
+        this.setState({flash: false})
+      }, 1000)
+    },
+    componentWillUnmount () {
+      clearTimeout(this.timer)
+    }
+  })
+)
+
+export default enhance(AssetItem)

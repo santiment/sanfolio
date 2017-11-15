@@ -6,6 +6,7 @@ import { createStore, applyMiddleware } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import axios from 'axios'
 import axiosMiddleware from 'redux-axios-middleware'
+import thunk from 'redux-thunk'
 import './index.css'
 import App from './App'
 import reducers from './rootReducers.js'
@@ -16,7 +17,7 @@ const client = axios.create({
   responseType: 'json'
 })
 
-const middleware = [axiosMiddleware(client)]
+const middleware = [axiosMiddleware(client), thunk]
 
 const store = createStore(reducers,
   composeWithDevTools(applyMiddleware(...middleware))
