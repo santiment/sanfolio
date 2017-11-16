@@ -50,13 +50,16 @@ export const intentForm = (state = {money: 0}, action) => {
 export const portfolios = (state = {selected: 0, items: []}, action) => {
   switch (action.type) {
     case 'CREATE_NEW_PORTFOLIO':
+      const last = state.items.length
       return {
-        selected: action.selected || state.selected,
-        items: [{[action.name]: {
-          name: action.name,
-          items: action.items,
-          money: action.money
-        }}]
+        selected: last,
+        items: [
+          ...state.items,
+          {
+            name: action.name,
+            items: action.items,
+            money: action.money
+          }]
       }
     case 'SELECT_PORTFOLIO':
       const newSelected = action.selected &&
@@ -66,6 +69,28 @@ export const portfolios = (state = {selected: 0, items: []}, action) => {
       return {
         ...state,
         selected: newSelected
+      }
+    case 'REMOVE_SELECTED_PORTFOLIO':
+      const idRemovedPortfolio = state.selected
+      return {
+        selected: 0,
+        items: [
+          ...state.items.slice(0, idRemovedPortfolio),
+          ...state.items.slice(idRemovedPortfolio + 1, state.items.length)
+        ]
+      }
+    case 'UPDATE_SELECTED_PORTFOLIO':
+      return {
+        selected: state.selected,
+        items: [
+          ...state.items.slice(0, state.selected),
+          {
+            name: action.name,
+            items: action.items,
+            money: action.money
+          },
+          ...state.items.slice(state.selected + 1, state.items.length)
+        ]
       }
     default:
       return state

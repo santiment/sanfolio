@@ -24,54 +24,114 @@ describe('reducers ', () => {
     expect(nextState).toMatchSnapshot()
   })
 
-  it('should create new portfolio', () => {
-    const nextState = portfolios({selected: 0, items: []},
-      {
-        type: 'CREATE_NEW_PORTFOLIO',
-        name: 'Portfolio 2',
-        items: [],
-        money: 23440
-      })
-    expect(nextState).toMatchSnapshot()
-  })
+  describe('Portfolio Reducer ', () => {
+    it('should create new portfolio and select created portfolio', () => {
+      const oldState = {
+        selected: 0,
+        items: [
+          {
+            name: 'Portfolio 1'
+          },
+          {
+            name: 'Portfolio 2'
+          }
+        ]
+      }
+      const nextState = portfolios(oldState,
+        {
+          type: 'CREATE_NEW_PORTFOLIO',
+          name: 'Portfolio 3',
+          items: [],
+          money: 23440
+        })
+      expect(nextState.selected).toBe(2)
+      expect(nextState.items.length).toBe(3)
+      expect(nextState).toMatchSnapshot()
+    })
 
-  it('should select the portfolio', () => {
-    const oldState = {
-      selected: 0,
-      items: [
+    it('should select the portfolio', () => {
+      const oldState = {
+        selected: 0,
+        items: [
+          {
+            name: 'Portfolio 1'
+          },
+          {
+            name: 'Portfolio 2'
+          }
+        ]
+      }
+      const nextState = portfolios(oldState,
         {
-          name: 'Portfolio 1'
-        },
-        {
-          name: 'Portfolio 2'
-        }
-      ]
-    }
-    const nextState = portfolios(oldState,
-      {
-        type: 'SELECT_PORTFOLIO',
-        selected: 1
-      })
-    expect(nextState).toMatchSnapshot()
-  })
+          type: 'SELECT_PORTFOLIO',
+          selected: 1
+        })
+      expect(nextState).toMatchSnapshot()
+    })
 
-  it('should not select non existing Portfolio', () => {
-    const oldState = {
-      selected: 1,
-      items: [
+    it('should remove selected portfolio', () => {
+      const oldState = {
+        selected: 0,
+        items: [
+          {
+            name: 'Portfolio 1'
+          },
+          {
+            name: 'Portfolio 2'
+          }
+        ]
+      }
+      const nextState = portfolios(oldState,
         {
-          name: 'Portfolio 1'
-        },
+          type: 'REMOVE_SELECTED_PORTFOLIO'
+        })
+      expect(nextState.items.length).toBe(1)
+      expect(nextState).toMatchSnapshot()
+    })
+
+    it('should update selected portfolio', () => {
+      const oldState = {
+        selected: 0,
+        items: [
+          {
+            name: 'Portfolio 1',
+            items: [],
+            money: 10
+          },
+          {
+            name: 'Portfolio 2'
+          }
+        ]
+      }
+      const nextState = portfolios(oldState,
         {
-          name: 'Portfolio 2'
-        }
-      ]
-    }
-    const nextState = portfolios(oldState,
-      {
-        type: 'SELECT_PORTFOLIO',
-        selected: 3
-      })
-    expect(nextState).toMatchSnapshot()
+          type: 'UPDATE_SELECTED_PORTFOLIO',
+          name: 'Awesome Portfolio',
+          items: [],
+          money: 200
+        })
+      expect(nextState.items.length).toBe(2)
+      expect(nextState).toMatchSnapshot()
+    })
+
+    it('should not select non existing Portfolio', () => {
+      const oldState = {
+        selected: 1,
+        items: [
+          {
+            name: 'Portfolio 1'
+          },
+          {
+            name: 'Portfolio 2'
+          }
+        ]
+      }
+      const nextState = portfolios(oldState,
+        {
+          type: 'SELECT_PORTFOLIO',
+          selected: 3
+        })
+      expect(nextState).toMatchSnapshot()
+    })
   })
 })
