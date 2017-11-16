@@ -1,40 +1,56 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import {
+  Redirect,
+  Link
+} from 'react-router-dom'
+import {
   Statistic,
   List
 } from 'semantic-ui-react'
-import { Redirect } from 'react-router-dom'
 import { formatNumber } from './utils/formatting'
 import './IntentForm.css'
 
-const ProfileList = (name = 'Portfolio 1') => (
-  <List horizontal>
-    <List.Item>
-      <List.Content className='profile-link-active'>
-        <List.Header>
-          Portfolio 1
-        </List.Header>
-      </List.Content>
-    </List.Item>
-  </List>
-)
+export const PortfoliosNaviagation = ({portfolios}) => {
+  if (portfolios.items.length === 0) {
+    return ''
+  }
+  const {selected, items} = portfolios
+  return (
+    <List horizontal>
+      {items.map((portfolio, index) => (
+        <List.Item key={index}>
+          <List.Content
+            className={selected === index ? 'profile-link-active' : ''}>
+            <List.Header>
+              <Link to={`/portfolios/${portfolio.name}`}>
+                {portfolio.name}
+              </Link>
+            </List.Header>
+          </List.Content>
+        </List.Item>
+      ))}
+    </List>
+  )
+}
 
-class PortfolioPage extends Component {
+export class PortfolioPage extends Component {
   render () {
+    console.log('check', this.props.match);
     const {portfolios} = this.props
-    if (Object.keys(portfolios).length === 0) {
+    if (portfolios.items.length === 0) {
       return (
         <Redirect to={{
           pathname: '/invest',
-          state: { from: this.props.location }
+          state: { from: '/portfolios' }
         }} />
       )
     }
-    const selectedPortfolio = Object.values(portfolios.items[0])[0]
+    const selectedPortfolio = portfolios.items[0]
     return (
-      <div className='IntentForm'>
-        <ProfileList />
+      <div className='PortfolioPage'>
+        <h3>Name: {this.props.match.params.name}</h3>
+        <PortfoliosNaviagation portfolios={portfolios} />
         <br />
         <Statistic
           label='Current money'

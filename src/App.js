@@ -8,41 +8,43 @@ import {
 } from 'recompose'
 import {
   Route,
+  Switch,
   NavLink as Link
 } from 'react-router-dom'
 import AssetList from './AssetList'
 import IntentForm from './IntentForm'
-import PortfoliosPage from './PorfoliosPage'
+import PortfolioPage from './PorfoliosPage'
 import './App.css'
 
 export const App = ({markets, loading, hasError, loadingPrices, prices, life}) => (
   <div className='wrapper'>
     <div className='app'>
       <div className='container'>
-        <Route exact path={'/invest'} render={() => (
-          <IntentForm />
-        )} />
-        <Route exact path={'/portfolios'} render={() => (
-          <PortfoliosPage />
-        )} />
-        <Route exact path={'/'} render={() => (
-          <div>
-            {loading
-              ? <div>
-                  loading...
+        <Switch>
+          <Route exact path={'/invest'} render={() => (
+            <IntentForm />
+          )} />
+          <Route path={'/portfolios'} component={PortfolioPage} />
+          <Route path={'/portfolios/:name'} component={PortfolioPage} />
+          <Route exact path={'/'} render={() => (
+            <div>
+              {loading
+                ? <div>
+                    loading...
+                  </div>
+                : <div className='app-inner'>
+                  <AssetList
+                    markets={markets}
+                    prices={prices}
+                    life={life} />
+                  <Link className='app-btn-invest' to={'/invest'}>
+                    Invest money
+                  </Link>
                 </div>
-              : <div className='app-inner'>
-                <AssetList
-                  markets={markets}
-                  prices={prices}
-                  life={life} />
-                <Link className='app-btn-invest' to={'/invest'}>
-                  Invest money
-                </Link>
-              </div>
-            }
-          </div>
-        )} />
+              }
+            </div>
+          )} />
+        </Switch>
       </div>
       <div className='menu'>
         <Link
@@ -134,7 +136,8 @@ const enhance = compose(
     componentDidMount () {
       this.props.retrievePrices()
       this.props.retrieveMarkets()
-      this.props.realtimeUpdates()
+      //FIXME:
+      //this.props.realtimeUpdates()
     }
   })
 )
