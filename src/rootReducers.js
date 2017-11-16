@@ -47,17 +47,37 @@ export const intentForm = (state = {money: 0}, action) => {
   }
 }
 
-export const portfolios = (state = {}, action) => {
+export const portfolios = (state = {selected: 0, items: []}, action) => {
   switch (action.type) {
     case 'CREATE_NEW_PORTFOLIO':
       return {
-        ...state,
-        selected: 1,
+        selected: action.selected || state.selected,
         items: [{[action.name]: {
           name: action.name,
           items: action.items,
           money: action.money
         }}]
+      }
+    case 'SELECT_PORTFOLIO':
+      const newSelected = action.selected &&
+        state.items.length > action.selected
+        ? action.selected
+        : state.selected
+      return {
+        ...state,
+        selected: newSelected
+      }
+    default:
+      return state
+  }
+}
+
+export const settings = (state = {realtime: true}, action) => {
+  switch (action.type) {
+    case 'CHANGE_SETTINGS':
+      return {
+        ...state,
+        realtime: action.realtime
       }
     default:
       return state
@@ -68,5 +88,6 @@ export default combineReducers({
   markets,
   prices,
   intentForm,
-  portfolios
+  portfolios,
+  settings
 })

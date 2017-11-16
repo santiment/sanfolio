@@ -1,7 +1,56 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`reducers  change settings 1`] = `
+Object {
+  "realtime": false,
+}
+`;
+
 exports[`reducers  set amount for the first income money 1`] = `
 Object {
   "money": undefined,
+}
+`;
+
+exports[`reducers  should create new portfolio 1`] = `
+Object {
+  "items": Array [
+    Object {
+      "Portfolio 2": Object {
+        "items": Array [],
+        "money": 23440,
+        "name": "Portfolio 2",
+      },
+    },
+  ],
+  "selected": 0,
+}
+`;
+
+exports[`reducers  should not select non existing Portfolio 1`] = `
+Object {
+  "items": Array [
+    Object {
+      "name": "Portfolio 1",
+    },
+    Object {
+      "name": "Portfolio 2",
+    },
+  ],
+  "selected": 1,
+}
+`;
+
+exports[`reducers  should select the portfolio 1`] = `
+Object {
+  "items": Array [
+    Object {
+      "name": "Portfolio 1",
+    },
+    Object {
+      "name": "Portfolio 2",
+    },
+  ],
+  "selected": 1,
 }
 `;

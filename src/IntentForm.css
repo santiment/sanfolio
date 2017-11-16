@@ -16,18 +16,8 @@
   margin: 0 auto;
 }
 
-.markets-percent-list-inner {
-  /*display: flex;*/
-  /*flex-direction: column;*/
-  /*justify-content: space-between;*/
-}
-
 .markets-percent-list-row {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-}
-
-.markets-percent-list-row-symbol {
-
 }

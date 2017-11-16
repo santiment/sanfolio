@@ -19,7 +19,19 @@ const client = axios.create({
 
 const middleware = [axiosMiddleware(client), thunk]
 
+let preloadedState
+if (process.env.NODE_ENV === 'production') {
+  preloadedState = {}
+} else {
+  preloadedState = {
+    settings: {
+      realtime: false
+    }
+  }
+}
+
 const store = createStore(reducers,
+  preloadedState,
   composeWithDevTools(applyMiddleware(...middleware))
 )
 
