@@ -13,29 +13,8 @@ import {
 } from 'semantic-ui-react'
 import { Redirect } from 'react-router-dom'
 import { formatNumber } from './utils/formatting'
+import MarketsPercentList from './MarketsPercentList';
 import './IntentForm.css'
-
-const MarketsPercentList = ({data, money}) => {
-  const getPercent = mPercent => mPercent[Object.keys(mPercent)[0]]
-  const getSymbol = mPercent => Object.keys(mPercent)[0]
-  return (
-    <div className='markets-percent-list'>
-      <div className='markets-percent-list-inner'>
-        {data.map((mPercent, index) => (
-          <div className='markets-percent-list-row' key={index}>
-            <div className='markets-percent-list-row-symbol'>
-            {getSymbol(mPercent)} - {getPercent(mPercent)}%
-            </div>
-            <div className='markets-percent-list-row-value'>
-            {money > 0 && 
-              formatNumber((getPercent(mPercent) / 100 * money).toFixed(2), 'USD')}
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );  
-}
 
 class IntentAmount extends Component {
 
@@ -62,14 +41,14 @@ class IntentAmount extends Component {
     const name = e.target.value
     this.setState({
       newPortfolioName: name,
-      errorNameLength: !(name.length > 0 && name.length <= 15)
+      errorNameLength: !(name.length > 0 && name.length <= 15),
+      errorNameIsNotUnique: false
     })
   }
 
   handleChoosePortfolioName = e => {
       // TODO:
       // check > 3
-      // check slug is unique
     const portfolioName = this.state.newPortfolioName
     const url = slug(portfolioName, {lower: true})
     const isUniqueName = ((portfolios) => {
@@ -138,7 +117,9 @@ class IntentAmount extends Component {
               header='Suggestion'
               content='We suggeset you, this balanced portfolio.'
             />
-            <MarketsPercentList data={marketsPercentsList} money={money} />
+            <MarketsPercentList 
+              data={marketsPercentsList}
+              money={money} />
             <br />
             <Button 
               onClick={() => this.setState({chooseProfileName: true})}
@@ -179,6 +160,7 @@ class IntentAmount extends Component {
           <Modal.Actions>
             <Button 
               color='green'
+              disabled={this.state.errorNameIsNotUnique || this.state.errorNameLength}
               onClick={this.handleChoosePortfolioName} inverted>
               <Icon name='checkmark' /> Create
             </Button>

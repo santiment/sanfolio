@@ -45,7 +45,10 @@ export class PortfolioPage extends Component {
         }} />
       )
     }
-    if (this.props.location.pathname === '/portfolios') {
+    const selectedPortfolio = portfolios.items.find(el => {
+      return el.url === match.params.name
+    })
+    if (this.props.location.pathname === '/portfolios' || !selectedPortfolio) {
       const nextUrl = `/portfolios/${portfolios.items[portfolios.selected].url}`
       return (
         <Redirect to={{
@@ -57,9 +60,6 @@ export class PortfolioPage extends Component {
         }} />
       )
     }
-    const selectedPortfolio = portfolios.items.find(el => {
-      return el.url === match.params.name
-    })
     return (
       <div className='portfolio-page'>
         <PortfoliosNaviagation
