@@ -25,8 +25,4 @@ describe('AssetItem', () => {
   it('render the DUMB component', () => {
     expect(wrapper.length).toEqual(1)
   })
-
-  it('contains output', () => {
-    expect(wrapper.find('strong').text()).toEqual(asset.title)
-  })
 })

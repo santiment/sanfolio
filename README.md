@@ -12,14 +12,17 @@ Run linting js: `npm run test:lint:js`
 Run linting css: `npm run test:lint:css`
 
 All Tests inside in __tests__ folder.
-Smoke test is the e2e test with puppeteer
+Smoke test is the e2e test with puppeteer.
+
 Screenshots were auto-generated of all tested components inside .screenshots folder.
 
-We use redux, react-router 4
+We use redux, react-router 4.
 
 All reducers inside rootReducers.js
 
-We use **standard** for js lint and **stylelint** for css
+We use JEST, enzyme and jest snapshots for testing.
+
+We use **standard** for js lint and **stylelint** for css.
 
 Grep for TODO and FIXME, for not ready things...
 
