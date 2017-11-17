@@ -42,6 +42,10 @@ export const intentForm = (state = {money: 0}, action) => {
       return {
         money: action.money
       }
+    case 'RESET_INTENT_FORM':
+      return {
+        money: 0
+      }
     default:
       return state
   }

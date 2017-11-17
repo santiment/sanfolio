@@ -19,7 +19,7 @@ import './IntentForm.css'
 class IntentAmount extends Component {
 
   state = {
-    rawAmount: 0,
+    money: 0,
     openSuggestion: false,
     chooseProfileName: false,
     newPortfolioName: 'Portfolio 1',
@@ -28,13 +28,17 @@ class IntentAmount extends Component {
     errorNameLength: false
   }
 
+  componentWillReceiveProps(nextProps) {
+    console.log(nextProps); 
+  }
+
   handleChangeMoney = e => {
-    this.setState({rawAmount: e.target.value})
+    this.setState({money: e.target.value})
   }
 
   handleSubmitMoney = e => {
-    this.props.onSubmitMoney(this.state.rawAmount)
-    this.setState({rawAmount: 0})
+    this.props.onSubmitMoney(this.state.money)
+    this.setState({money: 0})
   }
 
   handleChangeNewPortfolioName = e => {
@@ -101,7 +105,7 @@ class IntentAmount extends Component {
             type='number'
             onChange={this.handleChangeMoney}
             className='input-money'
-            value={this.state.rawAmount} />
+            value={this.state.money} />
           <Button 
             basic
             color='green'
@@ -212,6 +216,9 @@ const mapDispatchToProps = dispatch => {
         items,
         money,
         url
+      })
+      dispatch({
+        type: 'RESET_INTENT_FORM'
       })
     }
   }
