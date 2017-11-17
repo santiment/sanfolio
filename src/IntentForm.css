@@ -1,0 +1,23 @@
+.IntentForm {
+  padding-top: 1em;
+}
+
+.input-money {
+  margin-right: 5px;
+}
+
+.profile-link-active {
+  border-bottom: 2px solid rgba(108, 211, 234, 0.58);
+}
+
+.markets-percent-list {
+  text-align: left;
+  width: 60%;
+  margin: 0 auto;
+}
+
+.markets-percent-list-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}

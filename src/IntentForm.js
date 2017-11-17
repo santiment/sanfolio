@@ -1,63 +1,175 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-
-const MarketsPercentList = ({data, money}) => {
-  const getPercent = mPercent => mPercent[Object.keys(mPercent)[0]]
-  const getSymbol = mPercent => Object.keys(mPercent)[0]
-  return (
-    <div>
-      {data.map((mPercent, index) => (
-        <div key={index}>
-          {getSymbol(mPercent)} - {getPercent(mPercent)}%
-          &nbsp;&nbsp;
-          {money > 0 && (getPercent(mPercent) / 100 * money).toFixed(2)}
-        </div>
-      ))}
-    </div>
-  );  
-}
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import slug from 'slug'
+import {
+  Button,
+  Input,
+  Statistic,
+  Message,
+  Icon,
+  Modal,
+  Header,
+  Label
+} from 'semantic-ui-react'
+import { Redirect } from 'react-router-dom'
+import { formatNumber } from './utils/formatting'
+import MarketsPercentList from './MarketsPercentList';
+import './IntentForm.css'
 
 class IntentAmount extends Component {
 
   state = {
-    rawAmount: 0
+    money: 0,
+    openSuggestion: false,
+    chooseProfileName: false,
+    newPortfolioName: 'Portfolio 1',
+    completed: false,
+    errorNameIsNotUnique: false,
+    errorNameLength: false
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log(nextProps); 
   }
 
   handleChangeMoney = e => {
-    this.setState({rawAmount: e.target.value});
+    this.setState({money: e.target.value})
   }
 
   handleSubmitMoney = e => {
-    this.props.onSubmitMoney(this.state.rawAmount);
-    this.setState({rawAmount: 0});
+    this.props.onSubmitMoney(this.state.money)
+    this.setState({money: 0})
+  }
+
+  handleChangeNewPortfolioName = e => {
+    const name = e.target.value
+    this.setState({
+      newPortfolioName: name,
+      errorNameLength: !(name.length > 0 && name.length <= 15),
+      errorNameIsNotUnique: false
+    })
+  }
+
+  handleChoosePortfolioName = e => {
+      // TODO:
+      // check > 3
+    const portfolioName = this.state.newPortfolioName
+    const url = slug(portfolioName, {lower: true})
+    const isUniqueName = ((portfolios) => {
+      let acc = true
+      for (let el of portfolios) {
+        acc = el.url !== url
+        if (acc === false)
+          return
+      }
+      return acc
+    })(this.props.portfolios.items)
+    
+    if (isUniqueName) {
+      this.props.createPortfolio(
+        portfolioName,
+        this.props.marketsPercentsList,
+        this.props.money,
+        url
+      )
+      this.setState({completed: true})  
+    } else {
+      this.setState({errorNameIsNotUnique: true})
+    }
   }
 
   render() {
-    const {money, marketsPercentsList} = this.props;
+    const {money, marketsPercentsList, portfolios} = this.props
+    if (this.state.completed) {
+      const nextUrl = `/portfolios/${portfolios.items[portfolios.selected].url}`
+      return (
+        <Redirect to={{
+          pathname: nextUrl,
+          state: { from: this.props.location }
+        }} />
+      )
+    }
     return (
-      <div>
-        <h3>Your current money is {money}</h3>
-        <hr/>
-        <p>How much money you wish to invest in the crypto world?</p>
-        <input 
-          type="number"
-          onChange={this.handleChangeMoney}
-          value={this.state.rawAmount} />
-        <button onClick={this.handleSubmitMoney}>
-          Calculate
-        </button>
+      <div className='IntentForm'>
+        <Statistic 
+          label='Current money'
+          value={formatNumber(money, 'USD')} />
 
-        <hr/>
-        <MarketsPercentList data={marketsPercentsList} money={money} />
+        {money === 0 &&
+        <Message>
+          <Message.Header>
+            How much money you wish to invest in the crypto world?
+          </Message.Header>
+          <br />
+          <Input 
+            type='number'
+            onChange={this.handleChangeMoney}
+            className='input-money'
+            value={this.state.money} />
+          <Button 
+            basic
+            color='green'
+            onClick={this.handleSubmitMoney}>
+            Calculate
+          </Button>
+        </Message>}
 
         {money > 0 &&
-        <div>
-          <hr/>
-          <button stype={{border: '1px solid black', borderRadius: 4}}>
-            Confirm balanced investing schema
-          </button>
-        </div>
+          <div className='suggestion-form'>
+            <Message
+              floating
+              header='Suggestion'
+              content='We suggeset you, this balanced portfolio.'
+            />
+            <MarketsPercentList 
+              data={marketsPercentsList}
+              money={money} />
+            <br />
+            <Button 
+              onClick={() => this.setState({chooseProfileName: true})}
+              color='green'>
+              Confirm balanced investing schema
+            </Button>
+          </div>
         }
+
+        <Modal
+          open={this.state.chooseProfileName}
+          onClose={() => this.setState({chooseProfileName: false})}
+          basic
+          size='small'
+        >
+          <Header icon='browser' content='Change the Portfolio name' />
+          <Modal.Content>
+            <Input
+              type='text'
+              ref='portfolioNameInput'
+              onChange={this.handleChangeNewPortfolioName}
+              value={this.state.newPortfolioName} />
+            {this.state.errorNameIsNotUnique &&
+              <Label 
+                basic
+                color='red'
+                pointing>
+                Please enter a unique name of new portfolio
+              </Label>}
+            {this.state.errorNameLength && 
+              <Label 
+                basic
+                color='red'
+                pointing>
+                Please enter a name with length &le; 15
+              </Label>}
+          </Modal.Content>
+          <Modal.Actions>
+            <Button 
+              color='green'
+              disabled={this.state.errorNameIsNotUnique || this.state.errorNameLength}
+              onClick={this.handleChoosePortfolioName} inverted>
+              <Icon name='checkmark' /> Create
+            </Button>
+          </Modal.Actions>
+        </Modal>
       </div>
     )
   }
@@ -84,7 +196,8 @@ const mapStateToProps = state => {
   return {
     totalMarketCap,
     marketsPercentsList,
-    money: state.intentForm.money
+    money: state.intentForm.money,
+    portfolios: state.portfolios
   }
 }
 
@@ -94,6 +207,18 @@ const mapDispatchToProps = dispatch => {
       dispatch({
         type: 'INPUT_AMOUNT_MONEY',
         money
+      })
+    },
+    createPortfolio: (name, items, money, url) => {
+      dispatch({
+        type: 'CREATE_NEW_PORTFOLIO',
+        name,
+        items,
+        money,
+        url
+      })
+      dispatch({
+        type: 'RESET_INTENT_FORM'
       })
     }
   }

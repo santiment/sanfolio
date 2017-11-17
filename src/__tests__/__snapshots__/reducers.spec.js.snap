@@ -1,5 +1,86 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`reducers  Portfolio Reducer  should create new portfolio and select created portfolio 1`] = `
+Object {
+  "items": Array [
+    Object {
+      "name": "Portfolio 1",
+    },
+    Object {
+      "name": "Portfolio 2",
+    },
+    Object {
+      "items": Array [],
+      "money": 23440,
+      "name": "Portfolio 3",
+      "url": "portfolio-3",
+    },
+  ],
+  "selected": 2,
+}
+`;
+
+exports[`reducers  Portfolio Reducer  should not select non existing Portfolio 1`] = `
+Object {
+  "items": Array [
+    Object {
+      "name": "Portfolio 1",
+    },
+    Object {
+      "name": "Portfolio 2",
+    },
+  ],
+  "selected": 1,
+}
+`;
+
+exports[`reducers  Portfolio Reducer  should remove selected portfolio 1`] = `
+Object {
+  "items": Array [
+    Object {
+      "name": "Portfolio 2",
+    },
+  ],
+  "selected": 0,
+}
+`;
+
+exports[`reducers  Portfolio Reducer  should select the portfolio 1`] = `
+Object {
+  "items": Array [
+    Object {
+      "name": "Portfolio 1",
+    },
+    Object {
+      "name": "Portfolio 2",
+    },
+  ],
+  "selected": 1,
+}
+`;
+
+exports[`reducers  Portfolio Reducer  should update selected portfolio 1`] = `
+Object {
+  "items": Array [
+    Object {
+      "items": Array [],
+      "money": 200,
+      "name": "Awesome Portfolio",
+    },
+    Object {
+      "name": "Portfolio 2",
+    },
+  ],
+  "selected": 0,
+}
+`;
+
+exports[`reducers  change settings 1`] = `
+Object {
+  "realtime": false,
+}
+`;
+
 exports[`reducers  set amount for the first income money 1`] = `
 Object {
   "money": undefined,

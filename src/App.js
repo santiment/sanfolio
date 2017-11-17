@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import ReconnectingWebsocket from 'reconnecting-websocket'
 import {
   pure,
   compose,
@@ -7,37 +8,43 @@ import {
 } from 'recompose'
 import {
   Route,
-  //Link,
+  Switch,
   NavLink as Link
 } from 'react-router-dom'
 import AssetList from './AssetList'
 import IntentForm from './IntentForm'
+import PortfolioPage from './PorfoliosPage'
 import './App.css'
 
-export const App = ({markets, loading, hasError, loadingPrices, prices}) => (
+export const App = ({markets, loading, hasError, loadingPrices, prices, life}) => (
   <div className='wrapper'>
     <div className='app'>
       <div className='container'>
-        <Route exact path={'/invest'} render={() => (
-          <IntentForm />
-        )} />
-        <Route exact path={'/'} render={() => (
-          <div>
-            {loading
-              ? <div>
-                  loading...
+        <Switch>
+          <Route exact path={'/invest'} render={() => (
+            <IntentForm />
+          )} />
+          <Route exact path='/portfolios' component={PortfolioPage} />
+          <Route path={'/portfolios/:name'} component={PortfolioPage} />
+          <Route exact path={'/'} render={() => (
+            <div>
+              {loading
+                ? <div>
+                    loading...
+                  </div>
+                : <div className='app-inner'>
+                  <AssetList
+                    markets={markets}
+                    prices={prices}
+                    life={life} />
+                  <Link className='app-btn-invest' to={'/invest'}>
+                    Invest money
+                  </Link>
                 </div>
-              : <div className='app-inner'>
-                <AssetList
-                  markets={markets}
-                  prices={prices} />
-                <Link className='app-btn-invest' to={'/invest'}>
-                  Invest money
-                </Link>
-              </div>
-            }
-          </div>
-        )} />
+              }
+            </div>
+          )} />
+        </Switch>
       </div>
       <div className='menu'>
         <Link
@@ -56,7 +63,7 @@ export const App = ({markets, loading, hasError, loadingPrices, prices}) => (
         <Link
           className='menu-link'
           activeClassName='menu-link-active'
-          to='invest'>
+          to='portfolios'>
           My folio
         </Link>
       </div>
@@ -70,8 +77,25 @@ const mapStateToProps = state => {
     loading: state.markets.isLoading,
     hasError: state.markets.error,
     loadingPrices: state.prices.isLoading,
-    prices: state.prices.items
+    prices: state.prices.items,
+    life: state.prices.life
   }
+}
+
+const WS_URL = 'wss://api.lionshare.capital'
+
+const connectToWebsocket = dispatch => {
+  this.websocket = new ReconnectingWebsocket(WS_URL, [], {})
+  this.websocket.addEventListener('message', message => {
+    const data = JSON.parse(message.data)
+    const title = data.cryptoCurrency
+    const price = parseFloat(data.price)
+    dispatch({
+      type: 'FIRE_TICKET',
+      title,
+      price
+    })
+  })
 }
 
 const mapDispatchToProps = dispatch => {
@@ -95,6 +119,9 @@ const mapDispatchToProps = dispatch => {
           }
         }
       })
+    },
+    realtimeUpdates: () => {
+      connectToWebsocket(dispatch)
     }
   }
 }
@@ -109,6 +136,8 @@ const enhance = compose(
     componentDidMount () {
       this.props.retrievePrices()
       this.props.retrieveMarkets()
+      //FIXME:
+      //this.props.realtimeUpdates()
     }
   })
 )
