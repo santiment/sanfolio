@@ -136,8 +136,7 @@ const enhance = compose(
     componentDidMount () {
       this.props.retrievePrices()
       this.props.retrieveMarkets()
-      //FIXME:
-      //this.props.realtimeUpdates()
+      this.props.realtimeUpdates()
     }
   })
 )
