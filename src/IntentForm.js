@@ -1,14 +1,15 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import slug from 'slug'
 import {
   Button,
   Input,
   Statistic,
-  List,
   Message,
   Icon,
   Modal,
-  Header
+  Header,
+  Label
 } from 'semantic-ui-react'
 import { Redirect } from 'react-router-dom'
 import { formatNumber } from './utils/formatting'
@@ -36,16 +37,6 @@ const MarketsPercentList = ({data, money}) => {
   );  
 }
 
-const ProfileList = () => (
-  <List horizontal>
-    <List.Item>
-      <List.Content className='profile-link-active'>
-        <List.Header>Profile 1</List.Header>
-      </List.Content>
-    </List.Item>
-  </List>
-)
-
 class IntentAmount extends Component {
 
   state = {
@@ -53,7 +44,9 @@ class IntentAmount extends Component {
     openSuggestion: false,
     chooseProfileName: false,
     newPortfolioName: 'Portfolio 1',
-    completed: false
+    completed: false,
+    errorNameIsNotUnique: false,
+    errorNameLength: false
   }
 
   handleChangeMoney = e => {
@@ -65,21 +58,50 @@ class IntentAmount extends Component {
     this.setState({rawAmount: 0})
   }
 
+  handleChangeNewPortfolioName = e => {
+    const name = e.target.value
+    this.setState({
+      newPortfolioName: name,
+      errorNameLength: !(name.length > 0 && name.length <= 15)
+    })
+  }
+
   handleChoosePortfolioName = e => {
-    this.setState({chooseProfileName: false, completed: true})  
-    this.props.createPortfolio(
-      this.refs.portfolioNameInput.value || 'Portfolio 1',
-      this.props.marketsPercentsList,
-      this.props.money
-    )
+      // TODO:
+      // check > 3
+      // check slug is unique
+    const portfolioName = this.state.newPortfolioName
+    const url = slug(portfolioName, {lower: true})
+    const isUniqueName = ((portfolios) => {
+      let acc = true
+      for (let el of portfolios) {
+        acc = el.url !== url
+        if (acc === false)
+          return
+      }
+      return acc
+    })(this.props.portfolios.items)
+    
+    if (isUniqueName) {
+      this.props.createPortfolio(
+        portfolioName,
+        this.props.marketsPercentsList,
+        this.props.money,
+        url
+      )
+      this.setState({completed: true})  
+    } else {
+      this.setState({errorNameIsNotUnique: true})
+    }
   }
 
   render() {
-    const {money, marketsPercentsList} = this.props
+    const {money, marketsPercentsList, portfolios} = this.props
     if (this.state.completed) {
+      const nextUrl = `/portfolios/${portfolios.items[portfolios.selected].url}`
       return (
         <Redirect to={{
-          pathname: '/portfolios',
+          pathname: nextUrl,
           state: { from: this.props.location }
         }} />
       )
@@ -137,7 +159,22 @@ class IntentAmount extends Component {
             <Input
               type='text'
               ref='portfolioNameInput'
+              onChange={this.handleChangeNewPortfolioName}
               value={this.state.newPortfolioName} />
+            {this.state.errorNameIsNotUnique &&
+              <Label 
+                basic
+                color='red'
+                pointing>
+                Please enter a unique name of new portfolio
+              </Label>}
+            {this.state.errorNameLength && 
+              <Label 
+                basic
+                color='red'
+                pointing>
+                Please enter a name with length &le; 15
+              </Label>}
           </Modal.Content>
           <Modal.Actions>
             <Button 
@@ -173,7 +210,8 @@ const mapStateToProps = state => {
   return {
     totalMarketCap,
     marketsPercentsList,
-    money: state.intentForm.money
+    money: state.intentForm.money,
+    portfolios: state.portfolios
   }
 }
 
@@ -185,12 +223,13 @@ const mapDispatchToProps = dispatch => {
         money
       })
     },
-    createPortfolio: (name, items, money) => {
+    createPortfolio: (name, items, money, url) => {
       dispatch({
         type: 'CREATE_NEW_PORTFOLIO',
         name,
         items,
-        money
+        money,
+        url
       })
     }
   }

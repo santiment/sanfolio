@@ -24,7 +24,7 @@ export const App = ({markets, loading, hasError, loadingPrices, prices, life}) =
           <Route exact path={'/invest'} render={() => (
             <IntentForm />
           )} />
-          <Route path={'/portfolios'} component={PortfolioPage} />
+          <Route exact path='/portfolios' component={PortfolioPage} />
           <Route path={'/portfolios/:name'} component={PortfolioPage} />
           <Route exact path={'/'} render={() => (
             <div>

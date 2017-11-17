@@ -1,173 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`PortfolioPage PortfoliosNaviagation should render correctly 1`] = `
-<MemoryRouter>
-  <Router
-    history={
-      Object {
-        "action": "POP",
-        "block": [Function],
-        "canGo": [Function],
-        "createHref": [Function],
-        "entries": Array [
-          Object {
-            "hash": "",
-            "key": "26sax4",
-            "pathname": "/",
-            "search": "",
-            "state": undefined,
-          },
-        ],
-        "go": [Function],
-        "goBack": [Function],
-        "goForward": [Function],
-        "index": 0,
-        "length": 1,
-        "listen": [Function],
-        "location": Object {
-          "hash": "",
-          "key": "26sax4",
-          "pathname": "/",
-          "search": "",
-          "state": undefined,
-        },
-        "push": [Function],
-        "replace": [Function],
-      }
-    }
-  >
-    <Component
-      portfolios={
-        Object {
-          "items": Array [
-            Object {
-              "items": Array [],
-              "money": 23523,
-              "name": "Awesome Portfolio 1",
-            },
-            Object {
-              "items": Array [],
-              "money": 234222,
-              "name": "Portfolio 2",
-            },
-          ],
-          "selected": 0,
-        }
-      }
-    >
-      <List
-        horizontal={true}
-      >
-        <div
-          className="ui horizontal list"
-          role="list"
-        >
-          <ListItem
-            key="0"
-          >
-            <div
-              className="item"
-              onClick={[Function]}
-              role="listitem"
-            >
-              <ListContent
-                className="profile-link-active"
-              >
-                <div
-                  className="content profile-link-active"
-                >
-                  <ListHeader>
-                    <div
-                      className="header"
-                    >
-                      <Link
-                        replace={false}
-                        to="/portfolios/Awesome Portfolio 1"
-                      >
-                        <a
-                          href="/portfolios/Awesome Portfolio 1"
-                          onClick={[Function]}
-                        >
-                          Awesome Portfolio 1
-                        </a>
-                      </Link>
-                    </div>
-                  </ListHeader>
-                </div>
-              </ListContent>
-            </div>
-          </ListItem>
-          <ListItem
-            key="1"
-          >
-            <div
-              className="item"
-              onClick={[Function]}
-              role="listitem"
-            >
-              <ListContent
-                className=""
-              >
-                <div
-                  className="content"
-                >
-                  <ListHeader>
-                    <div
-                      className="header"
-                    >
-                      <Link
-                        replace={false}
-                        to="/portfolios/Portfolio 2"
-                      >
-                        <a
-                          href="/portfolios/Portfolio 2"
-                          onClick={[Function]}
-                        >
-                          Portfolio 2
-                        </a>
-                      </Link>
-                    </div>
-                  </ListHeader>
-                </div>
-              </ListContent>
-            </div>
-          </ListItem>
-        </div>
-      </List>
-    </Component>
-  </Router>
-</MemoryRouter>
-`;
-
 exports[`PortfolioPage should redirect to invest page, if portfolios items is empty 1`] = `
 <Router
   history={
     Object {
       "action": "POP",
       "block": [Function],
-      "canGo": [Function],
       "createHref": [Function],
-      "entries": Array [
-        Object {
-          "hash": "",
-          "key": "qbuesv",
-          "pathname": "/",
-          "search": "",
-          "state": undefined,
-        },
-      ],
       "go": [Function],
       "goBack": [Function],
       "goForward": [Function],
-      "index": 0,
-      "length": 1,
       "listen": [Function],
       "location": Object {
         "hash": "",
-        "key": "qbuesv",
         "pathname": "/",
         "search": "",
-        "state": undefined,
       },
       "push": [Function],
       "replace": [Function],
@@ -178,63 +25,6 @@ exports[`PortfolioPage should redirect to invest page, if portfolios items is em
     portfolios={
       Object {
         "items": Array [],
-        "selected": 0,
-      }
-    }
-  />
-</Router>
-`;
-
-exports[`PortfolioPage should render correctly 1`] = `
-<Router
-  history={
-    Object {
-      "action": "POP",
-      "block": [Function],
-      "canGo": [Function],
-      "createHref": [Function],
-      "entries": Array [
-        Object {
-          "hash": "",
-          "key": "76i12h",
-          "pathname": "/",
-          "search": "",
-          "state": undefined,
-        },
-      ],
-      "go": [Function],
-      "goBack": [Function],
-      "goForward": [Function],
-      "index": 0,
-      "length": 1,
-      "listen": [Function],
-      "location": Object {
-        "hash": "",
-        "key": "76i12h",
-        "pathname": "/",
-        "search": "",
-        "state": undefined,
-      },
-      "push": [Function],
-      "replace": [Function],
-    }
-  }
->
-  <PortfolioPage
-    portfolios={
-      Object {
-        "items": Array [
-          Object {
-            "items": Array [],
-            "money": 23523,
-            "name": "Awesome Portfolio 1",
-          },
-          Object {
-            "items": Array [],
-            "money": 234222,
-            "name": "Portfolio 2",
-          },
-        ],
         "selected": 0,
       }
     }

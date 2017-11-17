@@ -9,21 +9,21 @@ import {
   List
 } from 'semantic-ui-react'
 import { formatNumber } from './utils/formatting'
-import './IntentForm.css'
+import './PorfoliosPage.css'
 
-export const PortfoliosNaviagation = ({portfolios}) => {
+export const PortfoliosNaviagation = ({portfolios, selectedUrl}) => {
   if (portfolios.items.length === 0) {
     return ''
   }
-  const {selected, items} = portfolios
+  const {items} = portfolios
   return (
-    <List horizontal>
+    <List horizontal className='portfolios-navigation'>
       {items.map((portfolio, index) => (
         <List.Item key={index}>
           <List.Content
-            className={selected === index ? 'profile-link-active' : ''}>
+            className={selectedUrl === portfolio.url ? 'profile-link-active' : ''}>
             <List.Header>
-              <Link to={`/portfolios/${portfolio.name}`}>
+              <Link to={`/portfolios/${portfolio.url}`}>
                 {portfolio.name}
               </Link>
             </List.Header>
@@ -36,8 +36,7 @@ export const PortfoliosNaviagation = ({portfolios}) => {
 
 export class PortfolioPage extends Component {
   render () {
-    console.log('check', this.props.match);
-    const {portfolios} = this.props
+    const {portfolios, match} = this.props
     if (portfolios.items.length === 0) {
       return (
         <Redirect to={{
@@ -46,11 +45,26 @@ export class PortfolioPage extends Component {
         }} />
       )
     }
-    const selectedPortfolio = portfolios.items[0]
+    if (this.props.location.pathname === '/portfolios') {
+      const nextUrl = `/portfolios/${portfolios.items[portfolios.selected].url}`
+      return (
+        <Redirect to={{
+          pathname: nextUrl,
+          state: {
+            from: '/portfolios',
+            portfolio: portfolios.items[portfolios.selected]
+          }
+        }} />
+      )
+    }
+    const selectedPortfolio = portfolios.items.find(el => {
+      return el.url === match.params.name
+    })
     return (
-      <div className='PortfolioPage'>
-        <h3>Name: {this.props.match.params.name}</h3>
-        <PortfoliosNaviagation portfolios={portfolios} />
+      <div className='portfolio-page'>
+        <PortfoliosNaviagation
+          selectedUrl={selectedPortfolio.url}
+          portfolios={portfolios} />
         <br />
         <Statistic
           label='Current money'
@@ -66,6 +80,18 @@ const mapStateToProps = state => {
   }
 }
 
+const mapDispatchToProps = dispatch => {
+  return {
+    selectPortfolioById: selected => {
+      dispatch({
+        type: 'SELECT_PORTFOLIO',
+        selected
+      })
+    }
+  }
+}
+
 export default connect(
-  mapStateToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(PortfolioPage)

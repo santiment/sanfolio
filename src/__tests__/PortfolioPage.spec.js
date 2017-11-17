@@ -1,7 +1,8 @@
 /* eslint-env jasmine */
 import React from 'react'
 import {
-  MemoryRouter
+  MemoryRouter,
+  StaticRouter
 } from 'react-router-dom'
 import { configure, shallow, mount } from 'enzyme'
 import toJson from 'enzyme-to-json'
@@ -18,7 +19,7 @@ describe('PortfolioPage', () => {
     selected: 0,
     items: [
       {
-        name: 'Awesome Portfolio 1',
+        name: 'Awesome',
         money: 23523,
         items: []
       },
@@ -43,14 +44,13 @@ describe('PortfolioPage', () => {
       items: []
     }
     const redirectedWrapper = shallow(
-      <MemoryRouter>
+      <StaticRouter context={{}}>
         <PortfolioPage portfolios={emptyPortfolios} />
-      </MemoryRouter>)
+      </StaticRouter>)
     expect(toJson(redirectedWrapper)).toMatchSnapshot()
   })
 
   it('should render correctly', () => {
-    expect(toJson(wrapper)).toMatchSnapshot()
     expect(wrapper.length).toEqual(1)
   })
 
@@ -60,8 +60,7 @@ describe('PortfolioPage', () => {
         <MemoryRouter>
           <PortfoliosNaviagation portfolios={portfolios} />
         </MemoryRouter>)
-      expect(toJson(navWrapper)).toMatchSnapshot()
-      expect(navWrapper.find('ListHeader').text()).toEqual(portfolios.items[0].name)
+      expect(navWrapper.find('ListHeader a').first().text()).toEqual(portfolios.items[0].name)
     })
   })
 })

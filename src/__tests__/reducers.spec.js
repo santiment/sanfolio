@@ -42,7 +42,8 @@ describe('reducers ', () => {
           type: 'CREATE_NEW_PORTFOLIO',
           name: 'Portfolio 3',
           items: [],
-          money: 23440
+          money: 23440,
+          url: 'portfolio-3'
         })
       expect(nextState.selected).toBe(2)
       expect(nextState.items.length).toBe(3)

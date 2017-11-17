@@ -13,6 +13,7 @@ Object {
       "items": Array [],
       "money": 23440,
       "name": "Portfolio 3",
+      "url": "portfolio-3",
     },
   ],
   "selected": 2,
