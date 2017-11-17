@@ -1,5 +1,7 @@
 Cryptofolio
 
+![Demo](https://github.com/Partysun/hack-cryptofolio/blob/master/.screenshots/demo.gif)
+
 ## For Developers
 
 1. fork this repo
