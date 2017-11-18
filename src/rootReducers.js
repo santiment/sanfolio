@@ -26,8 +26,8 @@ export const prices = (state = {isLoading: true, error: false, items: []}, actio
     case 'FIRE_TICKET':
       return {
         ...state,
-        life: {
-          ...state.life,
+        live: {
+          ...state.live,
           [action.title]: action.price.toFixed(2)
         }
       }

@@ -1,16 +1,16 @@
 import React from 'react'
 import AssetItem from './AssetItem'
 
-const getPrice = (title, prices, life) => {
-  if (life && life[title]) {
-    return life[title]
+const getPrice = (title, prices, live) => {
+  if (live && live[title]) {
+    return live[title]
   } else if (prices && prices[title]) {
     return prices[title][0]
   }
   return null
 }
 
-const AssetList = ({markets, prices, life}) => (
+const AssetList = ({markets, prices, live}) => (
   <div className='assets-list'>
     {Object.keys(markets)
       .filter((key, index) => index < 20)
@@ -21,7 +21,7 @@ const AssetList = ({markets, prices, life}) => (
             title,
             index,
             history: prices && prices[title] ? prices[title] : null,
-            price: getPrice(title, prices, life),
+            price: getPrice(title, prices, live),
             cap: markets[title]
           }} />
     ))}

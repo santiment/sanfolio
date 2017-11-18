@@ -16,7 +16,7 @@ import IntentForm from './IntentForm'
 import PortfolioPage from './PorfoliosPage'
 import './App.css'
 
-export const App = ({markets, loading, hasError, loadingPrices, prices, life}) => (
+export const App = ({markets, loading, hasError, loadingPrices, prices, live}) => (
   <div className='wrapper'>
     <div className='app'>
       <div className='container'>
@@ -36,7 +36,7 @@ export const App = ({markets, loading, hasError, loadingPrices, prices, life}) =
                   <AssetList
                     markets={markets}
                     prices={prices}
-                    life={life} />
+                    live={live} />
                   <Link className='app-btn-invest' to={'/invest'}>
                     Invest money
                   </Link>
@@ -78,7 +78,7 @@ const mapStateToProps = state => {
     hasError: state.markets.error,
     loadingPrices: state.prices.isLoading,
     prices: state.prices.items,
-    life: state.prices.life
+    live: state.prices.live
   }
 }
 
