@@ -1,0 +1,252 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MarketsPercentList AssetRow should render correctly 1`] = `
+<Component
+  cap={
+    Object {
+      "BTC": 56.6,
+    }
+  }
+  index={0}
+  money={250}
+  prices={
+    Array [
+      Object {
+        "BTC": 7700,
+      },
+      Object {
+        "ETH": 330,
+      },
+      Object {
+        "ETC": 66,
+      },
+    ]
+  }
+>
+  <div
+    className="markets-percent-list-row"
+  >
+    <div
+      className="markets-percent-list-row-symbol"
+    >
+      BTC
+       - 
+      56.6
+      %
+    </div>
+    <div
+      className="markets-percent-list-coin-value"
+    >
+      0.01837662
+    </div>
+    <div
+      className="markets-percent-list-row-value"
+    >
+      $141.50
+    </div>
+  </div>
+</Component>
+`;
+
+exports[`MarketsPercentList should render correctly 1`] = `
+<Component
+  markets={
+    Array [
+      Object {
+        "BTC": 56.6,
+      },
+      Object {
+        "ETH": 20,
+      },
+      Object {
+        "ETC": 12.12,
+      },
+    ]
+  }
+  money={250}
+  prices={
+    Array [
+      Object {
+        "BTC": 7700,
+      },
+      Object {
+        "ETH": 330,
+      },
+      Object {
+        "ETC": 66,
+      },
+    ]
+  }
+>
+  <div
+    className="markets-percent-list"
+  >
+    <div
+      className="markets-percent-list-inner"
+    >
+      <Component
+        cap={
+          Object {
+            "BTC": 56.6,
+          }
+        }
+        key="0"
+        money={250}
+        prices={
+          Array [
+            Object {
+              "BTC": 7700,
+            },
+            Object {
+              "ETH": 330,
+            },
+            Object {
+              "ETC": 66,
+            },
+          ]
+        }
+      >
+        <div
+          className="markets-percent-list-row"
+        >
+          <div
+            className="markets-percent-list-row-symbol"
+          >
+            BTC
+             - 
+            56.6
+            %
+          </div>
+          <div
+            className="markets-percent-list-coin-value"
+          >
+            0.01837662
+          </div>
+          <div
+            className="markets-percent-list-row-value"
+          >
+            $141.50
+          </div>
+        </div>
+      </Component>
+      <Component
+        cap={
+          Object {
+            "ETH": 20,
+          }
+        }
+        key="1"
+        money={250}
+        prices={
+          Array [
+            Object {
+              "BTC": 7700,
+            },
+            Object {
+              "ETH": 330,
+            },
+            Object {
+              "ETC": 66,
+            },
+          ]
+        }
+      >
+        <div
+          className="markets-percent-list-row"
+        >
+          <div
+            className="markets-percent-list-row-symbol"
+          >
+            ETH
+             - 
+            20
+            %
+          </div>
+          <div
+            className="markets-percent-list-coin-value"
+          >
+            0.15151515
+          </div>
+          <div
+            className="markets-percent-list-row-value"
+          >
+            $50.00
+          </div>
+        </div>
+      </Component>
+      <Component
+        cap={
+          Object {
+            "ETC": 12.12,
+          }
+        }
+        key="2"
+        money={250}
+        prices={
+          Array [
+            Object {
+              "BTC": 7700,
+            },
+            Object {
+              "ETH": 330,
+            },
+            Object {
+              "ETC": 66,
+            },
+          ]
+        }
+      >
+        <div
+          className="markets-percent-list-row"
+        >
+          <div
+            className="markets-percent-list-row-symbol"
+          >
+            ETC
+             - 
+            12.12
+            %
+          </div>
+          <div
+            className="markets-percent-list-coin-value"
+          >
+            0.45909091
+          </div>
+          <div
+            className="markets-percent-list-row-value"
+          >
+            $30.30
+          </div>
+        </div>
+      </Component>
+    </div>
+    <br />
+    <Button
+      as="button"
+      color="green"
+      onClick={[Function]}
+    >
+      <button
+        className="ui green button"
+        onClick={[Function]}
+        role="button"
+      >
+        Confirm balanced investing schema
+      </button>
+    </Button>
+    <Button
+      as="button"
+      basic={true}
+      color="red"
+    >
+      <button
+        className="ui red basic button"
+        onClick={[Function]}
+        role="button"
+      >
+        Reset
+      </button>
+    </Button>
+  </div>
+</Component>
+`;

@@ -41,7 +41,10 @@ describe('reducers ', () => {
         {
           type: 'CREATE_NEW_PORTFOLIO',
           name: 'Portfolio 3',
-          items: [],
+          data: {
+            'BTC': 0.01,
+            'ETC': 10
+          },
           money: 23440,
           url: 'portfolio-3'
         })
@@ -96,7 +99,7 @@ describe('reducers ', () => {
         items: [
           {
             name: 'Portfolio 1',
-            items: [],
+            data: {},
             money: 10
           },
           {
@@ -108,7 +111,7 @@ describe('reducers ', () => {
         {
           type: 'UPDATE_SELECTED_PORTFOLIO',
           name: 'Awesome Portfolio',
-          items: [],
+          data: {},
           money: 200
         })
       expect(nextState.items.length).toBe(2)

@@ -16,6 +16,15 @@ import { formatNumber } from './utils/formatting'
 import MarketsPercentList from './MarketsPercentList';
 import './IntentForm.css'
 
+export const calculateAmountOfCoins = (percentList, money) => {
+  return percentList.map(coinPercent => {
+    const coin = Object.values(coinPercent)[0] * money
+    return {
+      [Object.keys(coinPercent)[0]]: coin
+    } 
+  })
+}
+
 class IntentAmount extends Component {
 
   state = {
@@ -25,7 +34,8 @@ class IntentAmount extends Component {
     newPortfolioName: 'Portfolio 1',
     completed: false,
     errorNameIsNotUnique: false,
-    errorNameLength: false
+    errorNameLength: false,
+    portfolioData: {}
   }
 
   componentWillReceiveProps(nextProps) {
@@ -64,11 +74,11 @@ class IntentAmount extends Component {
       }
       return acc
     })(this.props.portfolios.items)
-    
+
     if (isUniqueName) {
       this.props.createPortfolio(
         portfolioName,
-        this.props.marketsPercentsList,
+        this.state.portfolioData,
         this.props.money,
         url
       )
@@ -76,6 +86,18 @@ class IntentAmount extends Component {
     } else {
       this.setState({errorNameIsNotUnique: true})
     }
+  }
+
+  handleListApproved = portfolioData => {
+    this.setState({
+      portfolioData,
+      chooseProfileName: true
+    })
+  }
+
+  handleListDeclined = e => {
+    this.props.onSubmitMoney(0)
+    this.setState({money: 0})
   }
 
   render() {
@@ -122,14 +144,10 @@ class IntentAmount extends Component {
               content='We suggeset you, this balanced portfolio.'
             />
             <MarketsPercentList 
-              data={marketsPercentsList}
+              markets={marketsPercentsList}
+              onListApproved={this.handleListApproved}
+              onListDeclined={this.handleListDeclined}
               money={money} />
-            <br />
-            <Button 
-              onClick={() => this.setState({chooseProfileName: true})}
-              color='green'>
-              Confirm balanced investing schema
-            </Button>
           </div>
         }
 
@@ -209,11 +227,11 @@ const mapDispatchToProps = dispatch => {
         money
       })
     },
-    createPortfolio: (name, items, money, url) => {
+    createPortfolio: (name, data, money, url) => {
       dispatch({
         type: 'CREATE_NEW_PORTFOLIO',
         name,
-        items,
+        data,
         money,
         url
       })

@@ -34,6 +34,16 @@ export const PortfoliosNaviagation = ({portfolios, selectedUrl}) => {
   )
 }
 
+export const PortfolioList = ({data}) => {
+  return (
+    <div>
+      {Object.keys(data).map((coinKey, index) => (
+        <div key={index}>{coinKey} - {data[coinKey].toFixed(8)}</div>
+      ))}
+    </div>
+  )
+}
+
 export class PortfolioPage extends Component {
   render () {
     const {portfolios, match} = this.props
@@ -69,6 +79,7 @@ export class PortfolioPage extends Component {
         <Statistic
           label='Current money'
           value={formatNumber(selectedPortfolio.money, 'USD')} />
+        <PortfolioList data={selectedPortfolio.data} />
       </div>
     )
   }

@@ -10,7 +10,10 @@ Object {
       "name": "Portfolio 2",
     },
     Object {
-      "items": Array [],
+      "data": Object {
+        "BTC": 0.01,
+        "ETC": 10,
+      },
       "money": 23440,
       "name": "Portfolio 3",
       "url": "portfolio-3",
@@ -63,7 +66,7 @@ exports[`reducers  Portfolio Reducer  should update selected portfolio 1`] = `
 Object {
   "items": Array [
     Object {
-      "items": Array [],
+      "items": undefined,
       "money": 200,
       "name": "Awesome Portfolio",
     },

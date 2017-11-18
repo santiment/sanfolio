@@ -62,7 +62,7 @@ export const portfolios = (state = {selected: 0, items: []}, action) => {
           {
             name: action.name,
             url: action.url,
-            items: action.items,
+            data: action.data,
             money: action.money
           }]
       }
