@@ -1,14 +1,6 @@
 import React from 'react'
+import { getPrice } from './utils/utils.js'
 import AssetItem from './AssetItem'
-
-const getPrice = (title, prices, live) => {
-  if (live && live[title]) {
-    return live[title]
-  } else if (prices && prices[title]) {
-    return prices[title][0]
-  }
-  return null
-}
 
 const AssetList = ({markets, prices, live}) => (
   <div className='assets-list'>

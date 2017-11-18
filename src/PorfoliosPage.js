@@ -9,6 +9,7 @@ import {
   List
 } from 'semantic-ui-react'
 import { formatNumber } from './utils/formatting'
+import { getPrice, calculateMoney } from './utils/utils.js'
 import './PorfoliosPage.css'
 
 export const PortfoliosNaviagation = ({portfolios, selectedUrl}) => {
@@ -34,7 +35,7 @@ export const PortfoliosNaviagation = ({portfolios, selectedUrl}) => {
   )
 }
 
-export const PortfolioList = ({data}) => {
+export const PortfolioList = ({live, prices, data}) => {
   return (
     <div>
       {Object.keys(data).map((coinKey, index) => (
@@ -46,7 +47,7 @@ export const PortfolioList = ({data}) => {
 
 export class PortfolioPage extends Component {
   render () {
-    const {portfolios, match} = this.props
+    const {portfolios, live, prices, match} = this.props
     if (portfolios.items.length === 0) {
       return (
         <Redirect to={{
@@ -70,6 +71,7 @@ export class PortfolioPage extends Component {
         }} />
       )
     }
+    const money = calculateMoney(selectedPortfolio.data, prices, live)
     return (
       <div className='portfolio-page'>
         <PortfoliosNaviagation
@@ -78,8 +80,11 @@ export class PortfolioPage extends Component {
         <br />
         <Statistic
           label='Current money'
-          value={formatNumber(selectedPortfolio.money, 'USD')} />
-        <PortfolioList data={selectedPortfolio.data} />
+          value={formatNumber(money, 'USD')} />
+        <PortfolioList
+          live={live}
+          prices={prices}
+          data={selectedPortfolio.data} />
       </div>
     )
   }
@@ -87,7 +92,9 @@ export class PortfolioPage extends Component {
 
 const mapStateToProps = state => {
   return {
-    portfolios: state.portfolios
+    portfolios: state.portfolios,
+    live: state.prices.live,
+    prices: state.prices.items
   }
 }
 
