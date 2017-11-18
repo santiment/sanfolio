@@ -38,14 +38,17 @@ Grep for TODO and FIXME, for not ready things...
 - [x] Add mobile menu
 - [x] Input Income Money + Open new route with personal folio
 - [x] Draw graphs
-- [ ] Save new Portfolio with coins data (local)
+- [x] Save new Portfolio with coins data (local)
 - [ ] Save new Portfolio with coins data (firebase)
+- [x] Update date on portfolio page, when ticket fires
 - [ ] Added header with personal portfolios stats on the top of the dashboard
     page
 
 ## Roadmap
 
-- [ ] Manage multiple portfolios
-- [ ] Balanced configuration for new portfolio
+- [ ] Sync local app data with cloud
+- [x] Balanced configuration for new portfolio
+- [ ] Update configuration of any portfolios
+- [ ] Stats
 - [ ] AUTH with SAN
 - [ ] PWA
