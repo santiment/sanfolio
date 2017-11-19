@@ -69,18 +69,19 @@ export const MarketsPercentList = ({
             cap={cap} />
         ))}
       </div>
-      <br />
-      <Button
-        onClick={() => onListApproved(data)}
-        color='green'>
-        Confirm balanced investing schema
-      </Button>
-      <Button
-        onClick={onListDeclined}
-        basic
-        color='red'>
-        Reset
-      </Button>
+      <div className='markets-percent-list-control'>
+        <Button
+          onClick={onListDeclined}
+          basic
+          color='red'>
+          Reset
+        </Button>
+        <Button
+          onClick={() => onListApproved(data)}
+          color='green'>
+          Confirm balanced investing schema
+        </Button>
+      </div>
     </div>
   )
 }

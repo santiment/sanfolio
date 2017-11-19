@@ -21,3 +21,12 @@
   flex-direction: row;
   justify-content: space-between;
 }
+
+.markets-percent-list-control {
+  display: flex;
+  margin-top: 1em;
+}
+
+.markets-percent-list-control button:last-child {
+  flex: 2;
+}

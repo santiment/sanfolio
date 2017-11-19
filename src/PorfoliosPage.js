@@ -9,7 +9,7 @@ import {
   List
 } from 'semantic-ui-react'
 import { formatNumber } from './utils/formatting'
-import { getPrice, calculateMoney } from './utils/utils.js'
+import { calculateMoney } from './utils/utils.js'
 import './PorfoliosPage.css'
 
 export const PortfoliosNaviagation = ({portfolios, selectedUrl}) => {

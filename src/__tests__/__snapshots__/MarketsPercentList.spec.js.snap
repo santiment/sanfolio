@@ -220,33 +220,36 @@ exports[`MarketsPercentList should render correctly 1`] = `
         </div>
       </Component>
     </div>
-    <br />
-    <Button
-      as="button"
-      color="green"
-      onClick={[Function]}
+    <div
+      className="markets-percent-list-control"
     >
-      <button
-        className="ui green button"
-        onClick={[Function]}
-        role="button"
+      <Button
+        as="button"
+        basic={true}
+        color="red"
       >
-        Confirm balanced investing schema
-      </button>
-    </Button>
-    <Button
-      as="button"
-      basic={true}
-      color="red"
-    >
-      <button
-        className="ui red basic button"
+        <button
+          className="ui red basic button"
+          onClick={[Function]}
+          role="button"
+        >
+          Reset
+        </button>
+      </Button>
+      <Button
+        as="button"
+        color="green"
         onClick={[Function]}
-        role="button"
       >
-        Reset
-      </button>
-    </Button>
+        <button
+          className="ui green button"
+          onClick={[Function]}
+          role="button"
+        >
+          Confirm balanced investing schema
+        </button>
+      </Button>
+    </div>
   </div>
 </Component>
 `;
