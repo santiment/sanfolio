@@ -141,6 +141,14 @@ export const user = (state = {
         isLoading: false,
         error: false
       }
+    case 'SUCCESS_LOGOUT':
+      return {
+        ...state,
+        pending: false,
+        error: false,
+        isLoading: false,
+        user: {}
+      }
     default:
       return state
   }

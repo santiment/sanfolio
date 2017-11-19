@@ -9,24 +9,46 @@ import {
 import {
   Route,
   Switch,
+  Redirect,
   NavLink as Link
 } from 'react-router-dom'
 import AssetList from './AssetList'
 import IntentForm from './IntentForm'
 import PortfolioPage from './PorfoliosPage'
+import SettingsPage from './Settings'
 import Login from './Login'
 import './App.css'
 
-export const App = ({markets, loading, hasError, loadingPrices, prices, live}) => (
+const ProtectedRoute = ({ user = {}, component: Component, ...rest }) => (
+  <Route {...rest} render={props => (
+    user.user && user.user.uid ? (
+      <Component {...props} />
+    ) : (
+      <Redirect to={{
+        pathname: '/login',
+        state: { from: props.location }
+      }} />
+    )
+  )} />
+)
+
+export const App = ({
+  markets,
+  loading,
+  hasError,
+  loadingPrices,
+  prices,
+  user,
+  live
+}) => (
   <div className='wrapper'>
     <div className='app'>
       <div className='container'>
         <Switch>
-          <Route exact path={'/invest'} render={() => (
-            <IntentForm />
-          )} />
-          <Route exact path='/portfolios' component={PortfolioPage} />
-          <Route path={'/portfolios/:name'} component={PortfolioPage} />
+          <ProtectedRoute user={user} exact path={'/invest'} component={IntentForm} />
+          <ProtectedRoute user={user} exact path='/portfolios' component={PortfolioPage} />
+          <ProtectedRoute user={user} path={'/portfolios/:name'} component={PortfolioPage} />
+          <ProtectedRoute user={user} exact path={'/settings'} component={SettingsPage} />
           <Route path={'/login'} component={Login} />
           <Route exact path={'/'} render={() => (
             <div>
@@ -80,7 +102,8 @@ const mapStateToProps = state => {
     hasError: state.markets.error,
     loadingPrices: state.prices.isLoading,
     prices: state.prices.items,
-    live: state.prices.live
+    live: state.prices.live,
+    user: state.user
   }
 }
 
