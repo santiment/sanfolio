@@ -20,13 +20,13 @@ const Login = ({user, onLogin}) => {
   }
 
   return (
-    <div className='app-loader'>
-      <div className='app-loader-inner login-form'>
+    <div className='login-page'>
+      <div className='login-page-inner'>
         <h2>Sign in</h2>
         {pending
           ? <div>loading...</div>
           : <Button
-            className='btn-primary'
+            color='green'
             onClick={onLogin} >
             Sign in with Google
           </Button>

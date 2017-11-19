@@ -6,11 +6,18 @@ import {
 } from 'react-router-dom'
 import {
   Statistic,
-  List
+  List,
+  Divider
 } from 'semantic-ui-react'
+import moment from 'moment'
 import { formatNumber } from './utils/formatting'
-import { calculateMoney } from './utils/utils.js'
+import { calculateMoney, getPrice } from './utils/utils.js'
 import './PorfoliosPage.css'
+
+export const formatDate = (timestamp) => {
+  const isToday = moment(timestamp).isSame(moment(), 'day')
+  return isToday ? 'created today' : `created at ${moment(timestamp).format('ll')}`
+}
 
 export const PortfoliosNaviagation = ({portfolios, selectedUrl}) => {
   if (portfolios.items.length === 0) {
@@ -37,9 +44,13 @@ export const PortfoliosNaviagation = ({portfolios, selectedUrl}) => {
 
 export const PortfolioList = ({live, prices, data}) => {
   return (
-    <div>
+    <div className='PortfolioList'>
       {Object.keys(data).map((coinKey, index) => (
-        <div key={index}>{coinKey} - {data[coinKey].toFixed(8)}</div>
+        <div className='PortfolioList-item' key={index}>
+          <div>{coinKey}</div>
+          <div>{data[coinKey].toFixed(8)}</div>
+          <div>{formatNumber(getPrice(coinKey, prices, live) * data[coinKey], 'USD')}</div>
+        </div>
       ))}
     </div>
   )
@@ -81,6 +92,11 @@ export class PortfolioPage extends Component {
         <Statistic
           label='Current money'
           value={formatNumber(money, 'USD')} />
+        <Divider horizontal>
+          {selectedPortfolio.createdAt
+            ? formatDate(selectedPortfolio.createdAt)
+            : 'created today'}
+        </Divider>
         <PortfolioList
           live={live}
           prices={prices}

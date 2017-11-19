@@ -1,3 +1,14 @@
 .portfolio-page {
   padding-top: 1em;
 }
+
+.PortfolioList {
+  width: 60%;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.PortfolioList-item {
+  display: flex;
+  justify-content: space-between;
+}

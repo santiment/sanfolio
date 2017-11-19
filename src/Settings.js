@@ -8,6 +8,7 @@ import {
   compose
 } from 'recompose'
 import { cloud } from './cloud'
+import './Settings.css'
 
 const Settings = ({user, onSignout}) => {
   return (

@@ -196,6 +196,8 @@ class IntentAmount extends Component {
 
 const mapStateToProps = state => {
   const getTop20keys = Object.keys(state.markets.items)
+      // get only existing in price list
+      .filter(symbol => state.prices.items.hasOwnProperty(symbol))
       .filter((symbol, index) => index < 20)
   const totalMarketCap = getTop20keys
       .map(symbol => {

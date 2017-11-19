@@ -72,7 +72,6 @@ export const portfolios = (state = {selected: 0, items: []}, action) => {
         portfolios[key].id = key
         return portfolios[key]
       })
-      console.log('check', items);
       return {
         ...state,
         items
