@@ -11,6 +11,7 @@ import {
   Header,
   Label
 } from 'semantic-ui-react'
+import { db, cloud } from './cloud';
 import { Redirect } from 'react-router-dom'
 import { formatNumber } from './utils/formatting'
 import MarketsPercentList from './MarketsPercentList';
@@ -39,7 +40,7 @@ class IntentAmount extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps); 
+    //console.log(nextProps); 
   }
 
   handleChangeMoney = e => {
@@ -238,6 +239,14 @@ const mapDispatchToProps = dispatch => {
       dispatch({
         type: 'RESET_INTENT_FORM'
       })
+      // FIXME:
+      // const uid = cloud.auth().currentUser.uid
+      db.ref('portfolios').push({
+        name,
+        data,
+        url,
+        createdAt: cloud.database.ServerValue.TIMESTAMP
+      })
     }
   }
 }
@@ -245,4 +254,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(IntentAmount);
+)(IntentAmount)

@@ -14,6 +14,7 @@ import {
 import AssetList from './AssetList'
 import IntentForm from './IntentForm'
 import PortfolioPage from './PorfoliosPage'
+import Login from './Login'
 import './App.css'
 
 export const App = ({markets, loading, hasError, loadingPrices, prices, live}) => (
@@ -26,6 +27,7 @@ export const App = ({markets, loading, hasError, loadingPrices, prices, live}) =
           )} />
           <Route exact path='/portfolios' component={PortfolioPage} />
           <Route path={'/portfolios/:name'} component={PortfolioPage} />
+          <Route path={'/login'} component={Login} />
           <Route exact path={'/'} render={() => (
             <div>
               {loading

@@ -114,10 +114,43 @@ export const settings = (state = {realtime: true}, action) => {
   }
 }
 
+export const user = (state = {
+  isLoading: true,
+  pending: false,
+  error: false,
+  user: {}
+}, action) => {
+  switch (action.type) {
+    case 'APP_LOADING':
+      return {
+        ...state,
+        isLoading: false
+      }
+    case 'SUCCESS_LOGIN':
+      return {
+        ...state,
+        pending: false,
+        error: false,
+        isLoading: false,
+        user: action.user
+      }
+    case 'PENDING_LOGIN':
+      return {
+        ...state,
+        pending: true,
+        isLoading: false,
+        error: false
+      }
+    default:
+      return state
+  }
+}
+
 export default combineReducers({
   markets,
   prices,
   intentForm,
   portfolios,
-  settings
+  settings,
+  user
 })

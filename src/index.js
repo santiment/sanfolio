@@ -7,6 +7,7 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 import axios from 'axios'
 import axiosMiddleware from 'redux-axios-middleware'
 import thunk from 'redux-thunk'
+import { cloud } from './cloud'
 import './index.css'
 import App from './App'
 import reducers from './rootReducers.js'
@@ -34,6 +35,22 @@ const store = createStore(reducers,
   preloadedState,
   composeWithDevTools(applyMiddleware(...middleware))
 )
+
+cloud.auth().onAuthStateChanged((user) => {
+  if (!user) {
+    store.dispatch({
+      type: 'APP_LOADING'
+    })
+  } else {
+    let _user = {}
+    _user.uid = user.uid
+    _user.email = user.email
+    store.dispatch({
+      type: 'SUCCESS_LOGIN',
+      user: _user
+    })
+  }
+})
 
 ReactDOM.render(
   <Provider store={store}>
