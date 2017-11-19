@@ -11,6 +11,7 @@ import {
   Header,
   Label
 } from 'semantic-ui-react'
+import { db, cloud } from './cloud';
 import { Redirect } from 'react-router-dom'
 import { formatNumber } from './utils/formatting'
 import MarketsPercentList from './MarketsPercentList';
@@ -39,7 +40,7 @@ class IntentAmount extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps); 
+    //console.log(nextProps); 
   }
 
   handleChangeMoney = e => {
@@ -195,6 +196,8 @@ class IntentAmount extends Component {
 
 const mapStateToProps = state => {
   const getTop20keys = Object.keys(state.markets.items)
+      // get only existing in price list
+      .filter(symbol => state.prices.items.hasOwnProperty(symbol))
       .filter((symbol, index) => index < 20)
   const totalMarketCap = getTop20keys
       .map(symbol => {
@@ -238,6 +241,14 @@ const mapDispatchToProps = dispatch => {
       dispatch({
         type: 'RESET_INTENT_FORM'
       })
+      // FIXME:
+      const uid = cloud.auth().currentUser.uid
+      db.ref('portfolios').child(uid).push({
+        name,
+        data,
+        url,
+        createdAt: cloud.database.ServerValue.TIMESTAMP
+      })
     }
   }
 }
@@ -245,4 +256,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(IntentAmount);
+)(IntentAmount)

@@ -101,11 +101,12 @@ const enhance = compose(
         this.setState({flash: true})
       }
       this.timer = setTimeout(() => {
-        this.setState({flash: false})
+        this.timer && this.setState({flash: false})
       }, 1000)
     },
     componentWillUnmount () {
       clearTimeout(this.timer)
+      this.timer = false
     }
   })
 )

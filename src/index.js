@@ -7,6 +7,7 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 import axios from 'axios'
 import axiosMiddleware from 'redux-axios-middleware'
 import thunk from 'redux-thunk'
+import { cloud, db } from './cloud'
 import './index.css'
 import App from './App'
 import reducers from './rootReducers.js'
@@ -34,6 +35,32 @@ const store = createStore(reducers,
   preloadedState,
   composeWithDevTools(applyMiddleware(...middleware))
 )
+
+cloud.auth().onAuthStateChanged((user) => {
+  if (!user) {
+    store.dispatch({
+      type: 'APP_LOADING'
+    })
+  } else {
+    let _user = {}
+    _user.uid = user.uid
+    _user.email = user.email
+    store.dispatch({
+      type: 'SUCCESS_LOGIN',
+      user: _user
+    })
+    db.ref('portfolios').child(user.uid).once('value', (snapshot) => {
+      let portfolios = {}
+      snapshot.forEach(data => {
+        portfolios[`${data.key}`] = data.val()
+      })
+      store.dispatch({
+        type: 'SUCCESS_FETCHED_PORTFOLIOS',
+        portfolios
+      })
+    })
+  }
+})
 
 ReactDOM.render(
   <Provider store={store}>

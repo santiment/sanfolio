@@ -66,6 +66,16 @@ export const portfolios = (state = {selected: 0, items: []}, action) => {
             money: action.money
           }]
       }
+    case 'SUCCESS_FETCHED_PORTFOLIOS':
+      const portfolios = action.portfolios
+      const items = Object.keys(portfolios).map(key => {
+        portfolios[key].id = key
+        return portfolios[key]
+      })
+      return {
+        ...state,
+        items
+      }
     case 'SELECT_PORTFOLIO':
       const newSelected = action.selected &&
         state.items.length > action.selected
@@ -114,10 +124,51 @@ export const settings = (state = {realtime: true}, action) => {
   }
 }
 
+export const user = (state = {
+  isLoading: true,
+  pending: false,
+  error: false,
+  user: {}
+}, action) => {
+  switch (action.type) {
+    case 'APP_LOADING':
+      return {
+        ...state,
+        isLoading: false
+      }
+    case 'SUCCESS_LOGIN':
+      return {
+        ...state,
+        pending: false,
+        error: false,
+        isLoading: false,
+        user: action.user
+      }
+    case 'PENDING_LOGIN':
+      return {
+        ...state,
+        pending: true,
+        isLoading: false,
+        error: false
+      }
+    case 'SUCCESS_LOGOUT':
+      return {
+        ...state,
+        pending: false,
+        error: false,
+        isLoading: false,
+        user: {}
+      }
+    default:
+      return state
+  }
+}
+
 export default combineReducers({
   markets,
   prices,
   intentForm,
   portfolios,
-  settings
+  settings,
+  user
 })
