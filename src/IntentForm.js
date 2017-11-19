@@ -240,8 +240,8 @@ const mapDispatchToProps = dispatch => {
         type: 'RESET_INTENT_FORM'
       })
       // FIXME:
-      // const uid = cloud.auth().currentUser.uid
-      db.ref('portfolios').push({
+      const uid = cloud.auth().currentUser.uid
+      db.ref('portfolios').child(uid).push({
         name,
         data,
         url,

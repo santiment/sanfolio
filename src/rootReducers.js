@@ -66,6 +66,17 @@ export const portfolios = (state = {selected: 0, items: []}, action) => {
             money: action.money
           }]
       }
+    case 'SUCCESS_FETCHED_PORTFOLIOS':
+      const portfolios = action.portfolios
+      const items = Object.keys(portfolios).map(key => {
+        portfolios[key].id = key
+        return portfolios[key]
+      })
+      console.log('check', items);
+      return {
+        ...state,
+        items
+      }
     case 'SELECT_PORTFOLIO':
       const newSelected = action.selected &&
         state.items.length > action.selected
