@@ -12,6 +12,7 @@ import {
   Redirect,
   NavLink as Link
 } from 'react-router-dom'
+import Spinner from 'react-spinkit'
 import AssetList from './AssetList'
 import IntentForm from './IntentForm'
 import PortfolioPage from './PorfoliosPage'
@@ -54,7 +55,7 @@ export const App = ({
             <div>
               {loading
                 ? <div>
-                    loading...
+                    <Spinner name='line-scale' />
                   </div>
                 : <div className='app-inner'>
                   <AssetList

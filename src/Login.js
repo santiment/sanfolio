@@ -9,6 +9,7 @@ import { cloud } from './cloud.js'
 import {
   Button
 } from 'semantic-ui-react'
+import Spinner from 'react-spinkit'
 
 const Login = ({user, onLogin}) => {
   const pending = user.pending
@@ -24,7 +25,9 @@ const Login = ({user, onLogin}) => {
       <div className='login-page-inner'>
         <h2>Sign in</h2>
         {pending
-          ? <div>loading...</div>
+          ? <div>
+            <Spinner name='line-scale' />
+          </div>
           : <Button
             color='green'
             onClick={onLogin} >
