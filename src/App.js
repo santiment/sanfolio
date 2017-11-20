@@ -38,8 +38,10 @@ export const App = ({
   loading,
   hasError,
   loadingPrices,
+  loadingRestPrices,
   prices,
   user,
+  portfolios,
   live
 }) => (
   <div className='wrapper'>
@@ -53,7 +55,7 @@ export const App = ({
           <Route path={'/login'} component={Login} />
           <Route exact path={'/'} render={() => (
             <div>
-              {loading
+              {loading || loadingRestPrices || loadingPrices
                 ? <div>
                   <Spinner name='line-scale' />
                 </div>
@@ -62,9 +64,10 @@ export const App = ({
                     markets={markets}
                     prices={prices}
                     live={live} />
+                  {portfolios.length < 4 &&
                   <Link className='app-btn-invest' to={'/invest'}>
                     Invest money
-                  </Link>
+                  </Link>}
                 </div>
               }
             </div>
@@ -102,7 +105,9 @@ const mapStateToProps = state => {
     loading: state.markets.isLoading,
     hasError: state.markets.error,
     loadingPrices: state.prices.isLoading,
+    loadingRestPrices: state.zerocoins.isLoading,
     prices: state.prices.items,
+    portfolios: state.portfolios.items,
     live: state.prices.live,
     user: state.user
   }
