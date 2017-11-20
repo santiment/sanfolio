@@ -105,6 +105,8 @@ export class PortfolioPage extends Component {
           {selectedPortfolio.createdAt
             ? formatDate(selectedPortfolio.createdAt)
             : 'created today'}
+          {selectedPortfolio.firstMoney &&
+            ` with ${formatNumber(selectedPortfolio.firstMoney, 'USD')}`}
         </Divider>
         <PortfolioList
           live={live}

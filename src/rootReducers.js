@@ -102,7 +102,8 @@ export const portfolios = (state = {selected: 0, items: []}, action) => {
             name: action.name,
             url: action.url,
             data: action.data,
-            money: action.money
+            money: action.money,
+            firstMoney: action.firstMoney
           }]
       }
     case 'SUCCESS_FETCHED_PORTFOLIOS':

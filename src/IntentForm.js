@@ -236,6 +236,7 @@ const mapDispatchToProps = dispatch => {
         name,
         data,
         money,
+        firstMoney: money,
         url
       })
       dispatch({
@@ -247,6 +248,7 @@ const mapDispatchToProps = dispatch => {
         name,
         data,
         url,
+        firstMoney: money,
         createdAt: cloud.database.ServerValue.TIMESTAMP
       })
     }
