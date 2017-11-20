@@ -47,7 +47,20 @@ export const prices = (state = {isLoading: true, error: false, items: []}, actio
         ...state,
         isLoading: false,
         error: false,
-        items: action.payload.data.data
+        items: {...action.payload.data.data, ...state.items}
+      }
+    case 'SUCCESS_ZEROCOINS':
+      const pricesZeroCoinsData = action.payload.data
+      const restCoinPrices = pricesZeroCoinsData.reduce((restCoins, zeroCoin) => {
+        if (!state.items[zeroCoin.symbol]) {
+          restCoins[zeroCoin.symbol] = [zeroCoin.price_usd]
+          return restCoins
+        }
+        return restCoins
+      }, {})
+      return {
+        ...state,
+        items: {...state.items, ...restCoinPrices}
       }
     case 'FIRE_TICKET':
       return {
