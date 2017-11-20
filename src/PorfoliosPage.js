@@ -72,7 +72,7 @@ export class PortfolioPage extends Component {
     const selectedPortfolio = portfolios.items.find(el => {
       return el.url === match.params.name
     })
-    if (this.props.location.pathname === '/portfolios') {
+    if (this.props.location.pathname === '/portfolios' || !selectedPortfolio) {
       console.log('redner ' + this.props.location.pathname + '  ' + selectedPortfolio)
       const nextUrl = `/portfolios/${portfolios.items[portfolios.selected].url}`
       return (

@@ -20,9 +20,7 @@ export const searchPriceCoinBySymbol = (symbol, prices) => {
     return Object.keys(price)[0] === symbol
   })
   if (!price) {
-    // TODO: we don't have all prices for top 20 market cap!
-    // return 1 for this. IT's critical place!
-    return 1
+    return null
   }
   return Object.values(price)[0]
 }
