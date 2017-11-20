@@ -7,8 +7,10 @@ import {
 import {
   Statistic,
   List,
-  Divider
+  Divider,
+  Button
 } from 'semantic-ui-react'
+import { db, cloud } from './cloud'
 import moment from 'moment'
 import { formatNumber } from './utils/formatting'
 import { calculateMoney, getPrice } from './utils/utils.js'
@@ -92,6 +94,13 @@ export class PortfolioPage extends Component {
         <Statistic
           label='Current money'
           value={formatNumber(money, 'USD')} />
+        <Button
+          circular
+          basic
+          color='red'
+          icon='delete'
+          className='deleteBtn'
+          onClick={() => this.props.deletePortfolio(selectedPortfolio.url, selectedPortfolio.id)} />
         <Divider horizontal>
           {selectedPortfolio.createdAt
             ? formatDate(selectedPortfolio.createdAt)
@@ -120,6 +129,16 @@ const mapDispatchToProps = dispatch => {
       dispatch({
         type: 'SELECT_PORTFOLIO',
         selected
+      })
+    },
+    deletePortfolio: (url, id) => {
+      const uid = cloud.auth().currentUser.uid
+      if (id) {
+        db.ref('portfolios').child(uid).child(id).remove()
+      }
+      dispatch({
+        type: 'REMOVE_SELECTED_PORTFOLIO',
+        url
       })
     }
   }

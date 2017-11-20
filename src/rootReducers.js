@@ -125,7 +125,9 @@ export const portfolios = (state = {selected: 0, items: []}, action) => {
         selected: newSelected
       }
     case 'REMOVE_SELECTED_PORTFOLIO':
-      const idRemovedPortfolio = state.selected
+      const idRemovedPortfolio = state.items.findIndex(item => {
+        return item.url === action.url
+      })
       return {
         selected: 0,
         items: [

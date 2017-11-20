@@ -1,4 +1,5 @@
 .portfolio-page {
+  position: relative;
   padding-top: 1em;
 }
 
@@ -11,4 +12,10 @@
 .PortfolioList-item {
   display: flex;
   justify-content: space-between;
+}
+
+.deleteBtn {
+  position: absolute;
+  right: 2%;
+  top: 10%;
 }
