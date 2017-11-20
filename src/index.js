@@ -5,6 +5,8 @@ import { Provider } from 'react-redux'
 import { createStore, applyMiddleware } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import axios from 'axios'
+import Raven from 'raven-js'
+import createRavenMiddleware from 'raven-for-redux'
 import { multiClientMiddleware } from 'redux-axios-middleware'
 import thunk from 'redux-thunk'
 import { cloud, db } from './cloud'
@@ -12,6 +14,8 @@ import './index.css'
 import App from './App'
 import reducers from './rootReducers.js'
 import registerServiceWorker from './registerServiceWorker'
+
+Raven.config('https://9811855f854f41d88f0ad2c41e006c33@sentry.io/247999').install()
 
 const clients = {
   lionClient: {
@@ -30,6 +34,12 @@ const clients = {
 
 const middleware = [
   multiClientMiddleware(clients),
+  createRavenMiddleware(Raven, {
+    filterBreadcrumbActions: action => {
+      return action.type !== 'FIRE_TICKET'
+    }
+    // Optionally pass some options here.
+  }),
   thunk
 ]
 
