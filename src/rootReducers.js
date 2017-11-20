@@ -14,6 +14,32 @@ export const markets = (state = {isLoading: true, error: false, items: []}, acti
   }
 }
 
+export const zerocoins = (state = {isLoading: true, error: false, items: []}, action) => {
+  switch (action.type) {
+    case 'LOADING_ZEROCOINS':
+      return {
+        ...state,
+        isLoading: true
+      }
+    case 'SUCCESS_ZEROCOINS':
+      return {
+        ...state,
+        isLoading: false,
+        error: false,
+        items: action.payload.data
+      }
+    case 'FAILED_ZEROCOINS':
+      return {
+        ...state,
+        isLoading: false,
+        error: true,
+        items: []
+      }
+    default:
+      return state
+  }
+}
+
 export const prices = (state = {isLoading: true, error: false, items: []}, action) => {
   switch (action.type) {
     case 'SUCCESS_PRICES':
@@ -167,6 +193,7 @@ export const user = (state = {
 export default combineReducers({
   markets,
   prices,
+  zerocoins,
   intentForm,
   portfolios,
   settings,

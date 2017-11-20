@@ -55,8 +55,8 @@ export const App = ({
             <div>
               {loading
                 ? <div>
-                    <Spinner name='line-scale' />
-                  </div>
+                  <Spinner name='line-scale' />
+                </div>
                 : <div className='app-inner'>
                   <AssetList
                     markets={markets}
@@ -130,6 +130,7 @@ const mapDispatchToProps = dispatch => {
       dispatch({
         types: ['LOADING_PRICES', 'SUCCESS_PRICES', 'FAILED_PRICES'],
         payload: {
+          client: 'lionClient',
           request: {
             url: '/prices'
           }
@@ -140,8 +141,20 @@ const mapDispatchToProps = dispatch => {
       dispatch({
         types: ['LOADING_MARKETS', 'SUCCESS_MARKETS', 'FAILED_MARKETS'],
         payload: {
+          client: 'lionClient',
           request: {
             url: '/markets'
+          }
+        }
+      })
+    },
+    retrieveZeroCoins: () => {
+      dispatch({
+        types: ['LOADING_ZEROCOINS', 'SUCCESS_ZEROCOINS', 'FAILED_ZEROCOINS'],
+        payload: {
+          client: 'marketCapClient',
+          request: {
+            url: ''
           }
         }
       })
@@ -162,6 +175,7 @@ const enhance = compose(
     componentDidMount () {
       this.props.retrievePrices()
       this.props.retrieveMarkets()
+      this.props.retrieveZeroCoins()
       this.props.realtimeUpdates()
     }
   })

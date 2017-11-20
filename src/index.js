@@ -5,7 +5,7 @@ import { Provider } from 'react-redux'
 import { createStore, applyMiddleware } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import axios from 'axios'
-import axiosMiddleware from 'redux-axios-middleware'
+import { multiClientMiddleware } from 'redux-axios-middleware'
 import thunk from 'redux-thunk'
 import { cloud, db } from './cloud'
 import './index.css'
@@ -13,12 +13,25 @@ import App from './App'
 import reducers from './rootReducers.js'
 import registerServiceWorker from './registerServiceWorker'
 
-const client = axios.create({
-  baseURL: 'https://api.lionshare.capital/api',
-  responseType: 'json'
-})
+const clients = {
+  lionClient: {
+    client: axios.create({
+      baseURL: 'https://api.lionshare.capital/api',
+      responseType: 'json'
+    })
+  },
+  marketCapClient: {
+    client: axios.create({
+      baseURL: 'https://us-central1-cryptofolio-15d92.cloudfunctions.net/prices',
+      responseType: 'json'
+    })
+  }
+}
 
-const middleware = [axiosMiddleware(client), thunk]
+const middleware = [
+  multiClientMiddleware(clients),
+  thunk
+]
 
 let preloadedState
 if (process.env.NODE_ENV === 'production') {
