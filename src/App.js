@@ -20,7 +20,11 @@ import SettingsPage from './Settings'
 import Login from './Login'
 import './App.css'
 
-const ProtectedRoute = ({ user = {}, component: Component, ...rest }) => (
+const ProtectedRoute = ({
+  user = {},
+  component: Component,
+  ...rest
+}) => (
   <Route {...rest} render={props => (
     user.user && user.user.uid ? (
       <Component {...props} />
@@ -78,7 +82,7 @@ export const App = ({
         <Link
           className='menu-link'
           activeClassName='menu-link-active'
-          to='settings'>
+          to='/settings'>
           Settings
         </Link>
         <Link
@@ -91,7 +95,7 @@ export const App = ({
         <Link
           className='menu-link'
           activeClassName='menu-link-active'
-          to='portfolios'>
+          to='/portfolios'>
           My folio
         </Link>
       </div>
