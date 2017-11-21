@@ -12,10 +12,12 @@
   flex-direction: row;
   margin-right: 10px;
   width: 20%;
+  min-width: 20%;
 }
 
 .assets-item .assets-item-avatar {
   width: 13px;
+  min-width: 13px;
   height: 13px;
   border-radius: 50%;
   margin-right: 8px;
@@ -28,6 +30,10 @@
   text-align: left;
   background-color: white;
   transition: 0.3s ease;
+}
+
+.assets-item .assets-item-graph {
+  height: 45px;
 }
 
 .assets-item .assets-item-details .assets-item-details-price {
