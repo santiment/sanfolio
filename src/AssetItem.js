@@ -12,10 +12,6 @@ import { formatNumber } from './utils/formatting'
 
 const COLOR = '#FF7300'
 
-//<div
-      //className='assets-item-avatar'
-      //style={{backgroundColor: COLOR}}
-     ///>
 const AssetAvatar = ({symbol}) => {
   return (
     <i className={`assets-item-avatar cc ${symbol}`} />
