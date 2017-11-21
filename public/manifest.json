@@ -1,6 +1,6 @@
 {
-  "short_name": "Cryprofolio",
-  "name": "Cryprofolio",
+  "short_name": "Sanfolio",
+  "name": "Sanfolio",
   "icons": [
     {
       "src": "focus.ico",
@@ -23,5 +23,5 @@
   "orientation": "portrait",
   "theme_color": "#ffffff",
   "background_color": "#ffffff",
-  "description" : "Cryptofolio app. It helps you create new balanced portfolion and more..."
+  "description" : "Sanfolio app. It helps you create new balanced portfolion and more..."
 }
