@@ -1,10 +1,11 @@
 {
   "name": "hackathon-crypto",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "dependencies": {
     "axios": "^0.17.1",
     "chart.js": "^2.7.1",
+    "cryptocoins-icons": "^2.6.0",
     "firebase": "^4.6.2",
     "moment": "^2.19.2",
     "raven-for-redux": "^1.1.1",

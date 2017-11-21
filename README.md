@@ -43,6 +43,7 @@ Grep for TODO and FIXME, for not ready things...
 - [x] Update date on portfolio page, when ticket fires
 - [ ] Added header with personal portfolios stats on the top of the dashboard
     page
+- [x] Added icons
 
 ## Roadmap
 
