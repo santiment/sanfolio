@@ -7,6 +7,22 @@ exports[`MarketsPercentList AssetRow should render correctly 1`] = `
       "BTC": 56.6,
     }
   }
+  data={
+    Object {
+      "ADA": 11.609008590666358,
+      "BCH": 0.007558669061380139,
+      "BTC": 0.00750053228379006,
+      "DASH": 0.0034625156131839,
+      "EOS": 0.2208225112777211,
+      "ETC": 0.04403520558230914,
+      "ETH": 0.04307733540298107,
+      "HSR": 0.01925753932664638,
+      "LSK": 0.051347106439531234,
+      "LTC": 0.024265747042433658,
+      "MIOTA": 1.2532610657778096,
+      "NEO": 0.02912821789038175,
+    }
+  }
   index={0}
   money={250}
   prices={
@@ -37,12 +53,12 @@ exports[`MarketsPercentList AssetRow should render correctly 1`] = `
     <div
       className="markets-percent-list-coin-value"
     >
-      0.01837662
+      0.00750053
     </div>
     <div
       className="markets-percent-list-row-value"
     >
-      $141.50
+      $0.00
     </div>
   </div>
 </Component>
@@ -50,6 +66,22 @@ exports[`MarketsPercentList AssetRow should render correctly 1`] = `
 
 exports[`MarketsPercentList should render correctly 1`] = `
 <Component
+  data={
+    Object {
+      "ADA": 11.609008590666358,
+      "BCH": 0.007558669061380139,
+      "BTC": 0.00750053228379006,
+      "DASH": 0.0034625156131839,
+      "EOS": 0.2208225112777211,
+      "ETC": 0.04403520558230914,
+      "ETH": 0.04307733540298107,
+      "HSR": 0.01925753932664638,
+      "LSK": 0.051347106439531234,
+      "LTC": 0.024265747042433658,
+      "MIOTA": 1.2532610657778096,
+      "NEO": 0.02912821789038175,
+    }
+  }
   markets={
     Array [
       Object {
@@ -90,8 +122,23 @@ exports[`MarketsPercentList should render correctly 1`] = `
             "BTC": 56.6,
           }
         }
+        data={
+          Object {
+            "ADA": 11.609008590666358,
+            "BCH": 0.007558669061380139,
+            "BTC": 0.00750053228379006,
+            "DASH": 0.0034625156131839,
+            "EOS": 0.2208225112777211,
+            "ETC": 0.04403520558230914,
+            "ETH": 0.04307733540298107,
+            "HSR": 0.01925753932664638,
+            "LSK": 0.051347106439531234,
+            "LTC": 0.024265747042433658,
+            "MIOTA": 1.2532610657778096,
+            "NEO": 0.02912821789038175,
+          }
+        }
         key="0"
-        money={250}
         prices={
           Array [
             Object {
@@ -120,12 +167,12 @@ exports[`MarketsPercentList should render correctly 1`] = `
           <div
             className="markets-percent-list-coin-value"
           >
-            0.01837662
+            0.00750053
           </div>
           <div
             className="markets-percent-list-row-value"
           >
-            $141.50
+            $0.00
           </div>
         </div>
       </Component>
@@ -135,8 +182,23 @@ exports[`MarketsPercentList should render correctly 1`] = `
             "ETH": 20,
           }
         }
+        data={
+          Object {
+            "ADA": 11.609008590666358,
+            "BCH": 0.007558669061380139,
+            "BTC": 0.00750053228379006,
+            "DASH": 0.0034625156131839,
+            "EOS": 0.2208225112777211,
+            "ETC": 0.04403520558230914,
+            "ETH": 0.04307733540298107,
+            "HSR": 0.01925753932664638,
+            "LSK": 0.051347106439531234,
+            "LTC": 0.024265747042433658,
+            "MIOTA": 1.2532610657778096,
+            "NEO": 0.02912821789038175,
+          }
+        }
         key="1"
-        money={250}
         prices={
           Array [
             Object {
@@ -165,12 +227,12 @@ exports[`MarketsPercentList should render correctly 1`] = `
           <div
             className="markets-percent-list-coin-value"
           >
-            0.15151515
+            0.04307734
           </div>
           <div
             className="markets-percent-list-row-value"
           >
-            $50.00
+            $0.00
           </div>
         </div>
       </Component>
@@ -180,8 +242,23 @@ exports[`MarketsPercentList should render correctly 1`] = `
             "ETC": 12.12,
           }
         }
+        data={
+          Object {
+            "ADA": 11.609008590666358,
+            "BCH": 0.007558669061380139,
+            "BTC": 0.00750053228379006,
+            "DASH": 0.0034625156131839,
+            "EOS": 0.2208225112777211,
+            "ETC": 0.04403520558230914,
+            "ETH": 0.04307733540298107,
+            "HSR": 0.01925753932664638,
+            "LSK": 0.051347106439531234,
+            "LTC": 0.024265747042433658,
+            "MIOTA": 1.2532610657778096,
+            "NEO": 0.02912821789038175,
+          }
+        }
         key="2"
-        money={250}
         prices={
           Array [
             Object {
@@ -210,12 +287,12 @@ exports[`MarketsPercentList should render correctly 1`] = `
           <div
             className="markets-percent-list-coin-value"
           >
-            0.45909091
+            0.04403521
           </div>
           <div
             className="markets-percent-list-row-value"
           >
-            $30.30
+            $0.00
           </div>
         </div>
       </Component>

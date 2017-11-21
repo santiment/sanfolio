@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import {
   pure,
   compose,
@@ -28,6 +29,15 @@ const getChartDataFromHistory = (history = []) => {
       data: history ? history.slice(0, 12) : []
     }]
   }
+}
+
+const propTypes = {
+  asset: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    cap: PropTypes.number.isRequired,
+    history: PropTypes.array
+  })
 }
 
 const AssetItem = ({asset, flash}) => {
@@ -91,6 +101,8 @@ const AssetItem = ({asset, flash}) => {
     </div>
   )
 }
+
+AssetItem.propTypes = propTypes
 
 const enhance = compose(
   pure,

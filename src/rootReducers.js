@@ -14,7 +14,7 @@ export const markets = (state = {isLoading: true, error: false, items: []}, acti
   }
 }
 
-export const zerocoins = (state = {isLoading: true, error: false, items: []}, action) => {
+export const zerocoins = (state = {isLoading: true, error: false}, action) => {
   switch (action.type) {
     case 'LOADING_ZEROCOINS':
       return {
@@ -25,35 +25,39 @@ export const zerocoins = (state = {isLoading: true, error: false, items: []}, ac
       return {
         ...state,
         isLoading: false,
-        error: false,
-        items: action.payload.data
+        error: false
       }
     case 'FAILED_ZEROCOINS':
       return {
         ...state,
         isLoading: false,
-        error: true,
-        items: []
+        error: true
       }
     default:
       return state
   }
 }
 
-export const prices = (state = {isLoading: true, error: false, items: []}, action) => {
+export const prices = (
+  state = {
+    isLoading: true,
+    error: false,
+    items: {},
+    history: []
+  }, action) => {
   switch (action.type) {
     case 'SUCCESS_PRICES':
       return {
         ...state,
         isLoading: false,
         error: false,
-        items: {...action.payload.data.data, ...state.items}
+        history: {...action.payload.data.data, ...state.history}
       }
     case 'SUCCESS_ZEROCOINS':
       const pricesZeroCoinsData = action.payload.data
       const restCoinPrices = pricesZeroCoinsData.reduce((restCoins, zeroCoin) => {
         if (!state.items[zeroCoin.symbol]) {
-          restCoins[zeroCoin.symbol] = [zeroCoin.price_usd]
+          restCoins[zeroCoin.symbol] = parseFloat(zeroCoin.price_usd)
           return restCoins
         }
         return restCoins
@@ -65,9 +69,9 @@ export const prices = (state = {isLoading: true, error: false, items: []}, actio
     case 'FIRE_TICKET':
       return {
         ...state,
-        live: {
-          ...state.live,
-          [action.title]: action.price.toFixed(2)
+        items: {
+          ...state.items,
+          [action.title]: action.price
         }
       }
     default:
@@ -84,6 +88,20 @@ export const intentForm = (state = {money: 0}, action) => {
     case 'RESET_INTENT_FORM':
       return {
         money: 0
+      }
+    default:
+      return state
+  }
+}
+
+export const marketsPercentList = (state = {data: {}}, action) => {
+  switch (action.type) {
+    case 'REMOVE_COIN':
+      const {[action.name]: deletedKey, ...otherCoins} = state.data
+      return {
+        data: {
+          ...otherCoins
+        }
       }
     default:
       return state

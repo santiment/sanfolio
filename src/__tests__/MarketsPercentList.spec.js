@@ -13,6 +13,21 @@ describe('MarketsPercentList', () => {
     {'ETC': 12.12}
   ]
 
+  const data = {
+    ADA: 11.609008590666358,
+    BCH: 0.007558669061380139,
+    BTC: 0.00750053228379006,
+    DASH: 0.0034625156131839,
+    EOS: 0.2208225112777211,
+    ETC: 0.04403520558230914,
+    ETH: 0.04307733540298107,
+    HSR: 0.01925753932664638,
+    LSK: 0.051347106439531234,
+    LTC: 0.024265747042433658,
+    MIOTA: 1.2532610657778096,
+    NEO: 0.02912821789038175
+  }
+
   const money = 250
 
   const prices = [
@@ -26,6 +41,7 @@ describe('MarketsPercentList', () => {
       <MarketsPercentList
         markets={markets}
         prices={prices}
+        data={data}
         money={money} />
     )
     expect(toJson(wrapper)).toMatchSnapshot()
@@ -39,6 +55,7 @@ describe('MarketsPercentList', () => {
           cap={{
             'BTC': 56.60
           }}
+          data={data}
           prices={prices}
           money={money} />
       )

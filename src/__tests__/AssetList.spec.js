@@ -8,13 +8,27 @@ configure({ adapter: new Adapter() })
 
 describe('AssetList', () => {
   let wrapper
-  const assets = {
+
+  const markets = {
     'BTC': 1202021,
     'ETH': 500000
   }
 
+  const prices = {
+    'BTC': 120,
+    'ETH': 500
+  }
+
+  const history = {
+    'BTC': [119],
+    'ETH': [400]
+  }
+
   beforeEach(() => {
-    wrapper = shallow(<AssetList markets={assets} />)
+    wrapper = shallow(<AssetList
+      markets={markets}
+      prices={prices}
+      history={history} />)
   })
 
   it('should render correctly', () => {

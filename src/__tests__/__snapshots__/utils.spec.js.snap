@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`make balanced market portfilio 1`] = `
+Object {
+  "BTC": 0.008592857142857143,
+  "ETC": 0.008045172896262241,
+  "ETH": 0.05159999999999999,
+}
+`;

@@ -44,14 +44,14 @@ export const PortfoliosNaviagation = ({portfolios, selectedUrl}) => {
   )
 }
 
-export const PortfolioList = ({live, prices, data}) => {
+export const PortfolioList = ({prices, data}) => {
   return (
     <div className='PortfolioList'>
       {Object.keys(data).map((coinKey, index) => (
         <div className='PortfolioList-item' key={index}>
           <div>{coinKey}</div>
           <div>{data[coinKey].toFixed(8)}</div>
-          <div>{formatNumber(getPrice(coinKey, prices, live) * data[coinKey], 'USD')}</div>
+          <div>{formatNumber(getPrice(coinKey, prices) * data[coinKey], 'USD')}</div>
         </div>
       ))}
     </div>
@@ -60,7 +60,7 @@ export const PortfolioList = ({live, prices, data}) => {
 
 export class PortfolioPage extends Component {
   render () {
-    const {portfolios, live, prices, match} = this.props
+    const {portfolios, prices, match} = this.props
     if (portfolios.items.length === 0) {
       return (
         <Redirect to={{
@@ -73,7 +73,6 @@ export class PortfolioPage extends Component {
       return el.url === match.params.name
     })
     if (this.props.location.pathname === '/portfolios' || !selectedPortfolio) {
-      console.log('redner ' + this.props.location.pathname + '  ' + selectedPortfolio)
       const nextUrl = `/portfolios/${portfolios.items[portfolios.selected].url}`
       return (
         <Redirect to={{
@@ -85,7 +84,7 @@ export class PortfolioPage extends Component {
         }} />
       )
     }
-    const money = calculateMoney(selectedPortfolio.data, prices, live)
+    const money = calculateMoney(selectedPortfolio.data, prices)
     return (
       <div className='portfolio-page'>
         <PortfoliosNaviagation
@@ -110,7 +109,6 @@ export class PortfolioPage extends Component {
             ` with ${formatNumber(selectedPortfolio.firstMoney, 'USD')}`}
         </Divider>
         <PortfolioList
-          live={live}
           prices={prices}
           data={selectedPortfolio.data} />
       </div>
@@ -121,19 +119,12 @@ export class PortfolioPage extends Component {
 const mapStateToProps = state => {
   return {
     portfolios: state.portfolios,
-    live: state.prices.live,
     prices: state.prices.items
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    selectPortfolioById: selected => {
-      dispatch({
-        type: 'SELECT_PORTFOLIO',
-        selected
-      })
-    },
     deletePortfolio: (url, id) => {
       const uid = cloud.auth().currentUser.uid
       if (id) {

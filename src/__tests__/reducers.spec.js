@@ -2,7 +2,8 @@
 import {
   intentForm,
   settings,
-  portfolios
+  portfolios,
+  marketsPercentList
 } from '../rootReducers'
 
 describe('reducers ', () => {
@@ -22,6 +23,24 @@ describe('reducers ', () => {
         realtime: false
       })
     expect(nextState).toMatchSnapshot()
+  })
+
+  describe('MarketsPercentList Reducer ', () => {
+    it('should remove coin from data', () => {
+      const oldState = {
+        data: {
+          'BTC': 234234,
+          'ETC': 222234,
+          'ETH': 2342
+        }
+      }
+      const nextState = marketsPercentList(oldState,
+        {
+          type: 'REMOVE_COIN',
+          name: 'ETC'
+        })
+      expect(nextState).toMatchSnapshot()
+    })
   })
 
   describe('Portfolio Reducer ', () => {

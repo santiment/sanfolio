@@ -1,5 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`reducers  MarketsPercentList Reducer  should remove coin from data 1`] = `
+Object {
+  "data": Object {
+    "BTC": 234234,
+    "ETH": 2342,
+  },
+}
+`;
+
 exports[`reducers  Portfolio Reducer  should create new portfolio and select created portfolio 1`] = `
 Object {
   "items": Array [
@@ -14,6 +23,7 @@ Object {
         "BTC": 0.01,
         "ETC": 10,
       },
+      "firstMoney": undefined,
       "money": 23440,
       "name": "Portfolio 3",
       "url": "portfolio-3",

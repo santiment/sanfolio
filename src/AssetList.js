@@ -1,8 +1,7 @@
 import React from 'react'
-import { getPrice } from './utils/utils.js'
 import AssetItem from './AssetItem'
 
-const AssetList = ({markets, prices, live}) => (
+const AssetList = ({markets, prices, history}) => (
   <div className='assets-list'>
     {Object.keys(markets)
       .filter((key, index) => index < 20)
@@ -11,9 +10,8 @@ const AssetList = ({markets, prices, live}) => (
           key={index}
           asset={{
             title,
-            index,
-            history: prices && prices[title] ? prices[title] : null,
-            price: getPrice(title, prices, live),
+            history: history && history[title] ? history[title] : null,
+            price: prices[title],
             cap: markets[title]
           }} />
     ))}

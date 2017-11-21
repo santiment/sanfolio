@@ -1,44 +1,42 @@
 /* eslint-env jasmine */
-import { searchPriceCoinBySymbol } from './../MarketsPercentList.js'
-import { calculateMoney, getPrice } from './../utils/utils.js'
+import {
+  calculateMoney,
+  getPrice,
+  selectBalancedData
+} from './../utils/utils.js'
 
 it('get price of coin by symbol', () => {
-  const prices = [
-    {'BTC': 56.60},
-    {'ETH': 20.00},
-    {'ETC': 12.12}
-  ]
-  const coinPrice = searchPriceCoinBySymbol('ETH', prices)
+  const prices = {
+    'BTC': 56.60,
+    'ETH': 20.00,
+    'ETC': 12.12
+  }
+  const coinPrice = getPrice('ETH', prices)
   expect(coinPrice).toEqual(20.00)
 })
 
-it('get price of coin from static and live data', () => {
+it('make balanced market portfilio', () => {
   const prices = {
-    'BTC': [5000],
-    'ETH': [303],
-    'ETC': [120]
+    'BTC': 7000,
+    'ETH': 300.00,
+    'ETC': 200.12
   }
-  const live = {
-    'BTC': 6000
-  }
-  const price = getPrice('ETH', prices, live)
-  expect(price).toEqual(303)
+  const markets = [{BTC: '60.15'}, {ETH: '15.48'}, {ETC: '1.61'}]
+  const balanced = selectBalancedData(100, prices, markets)
+  expect(balanced).toMatchSnapshot()
 })
 
 it('get calculated money of portfolio', () => {
   const prices = {
-    'BTC': [5000],
-    'ETH': [303],
-    'ETC': [120]
+    'BTC': 6000,
+    'ETH': 303,
+    'ETC': 120
   }
   const data = {
     'BTC': 0.028,
     'ETH': 10,
     'ETC': 11
   }
-  const live = {
-    'BTC': 6000
-  }
-  const money = calculateMoney(data, prices, live)
+  const money = calculateMoney(data, prices)
   expect(money).toEqual(6000 * 0.028 + 303 * 10 + 120 * 11)
 })

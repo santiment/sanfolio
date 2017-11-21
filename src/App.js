@@ -46,7 +46,7 @@ export const App = ({
   prices,
   user,
   portfolios,
-  live
+  history
 }) => (
   <div className='wrapper'>
     <div className='app'>
@@ -66,8 +66,8 @@ export const App = ({
                 : <div className='app-inner'>
                   <AssetList
                     markets={markets}
-                    prices={prices}
-                    live={live} />
+                    history={history}
+                    prices={prices} />
                   {portfolios.length < 4 &&
                   <Link className='app-btn-invest' to={'/invest'}>
                     Invest money
@@ -112,8 +112,8 @@ const mapStateToProps = state => {
     loadingRestPrices: state.zerocoins.isLoading,
     prices: state.prices.items,
     portfolios: state.portfolios.items,
-    live: state.prices.live,
-    user: state.user
+    user: state.user,
+    history: state.prices.history
   }
 }
 
