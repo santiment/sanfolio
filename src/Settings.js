@@ -13,7 +13,7 @@ import { cloud } from './cloud'
 import './Settings.css'
 
 const list = [
-  'Update all icons',
+  'Updated all icons',
   'Some fixes...'
 ]
 
