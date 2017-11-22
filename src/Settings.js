@@ -1,6 +1,8 @@
 import React from 'react'
 import {
-  Button
+  Button,
+  Message,
+  Header
 } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import {
@@ -10,14 +12,29 @@ import {
 import { cloud } from './cloud'
 import './Settings.css'
 
+const list = [
+  'Update all icons',
+  'Some fixes...'
+]
+
 const Settings = ({user, onSignout}) => {
   return (
     <div className='Settings'>
-      <h3>Current user is {user.user.displayName || user.user.email}</h3>
-      <Button
-        onClick={onSignout}>
-        Sign out
-      </Button>
+      <div className='settings-main'>
+        <h3>Current user is {user.user.displayName || user.user.email}</h3>
+        <Button
+          onClick={onSignout}>
+          Sign out
+        </Button>
+      </div>
+      <div className='settings-footer'>
+        <Header as='h4'>Version: 0.2.1</Header>
+        <Message
+          positive
+          header='CHANGELOG: 2017-11-22'
+          list={list}
+        />
+      </div>
     </div>
   )
 }
