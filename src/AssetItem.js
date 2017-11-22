@@ -7,16 +7,11 @@ import {
   withState
 } from 'recompose'
 import { Line } from 'react-chartjs-2'
+import AssetAvatar from './AssetIcon'
 import './AssetItem.css'
 import { formatNumber } from './utils/formatting'
 
 const COLOR = '#FF7300'
-
-const AssetAvatar = ({symbol}) => {
-  return (
-    <i className={`assets-item-avatar cc ${symbol}`} />
-  )
-}
 
 const getChartDataFromHistory = (history = []) => {
   return {
