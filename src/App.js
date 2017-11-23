@@ -163,7 +163,18 @@ const mapDispatchToProps = dispatch => {
         payload: {
           client: 'marketCapClient',
           request: {
-            url: ''
+            url: '/prices'
+          }
+        }
+      })
+    },
+    retrieveHistoryData: () => {
+      dispatch({
+        types: ['LOADING_HISTORY_DATA', 'SUCCESS_HISTORY_DATA', 'FAILED_HISTORY_DATA'],
+        payload: {
+          client: 'marketCapClient',
+          request: {
+            url: '/history'
           }
         }
       })
@@ -185,6 +196,7 @@ const enhance = compose(
       this.props.retrievePrices()
       this.props.retrieveMarkets()
       this.props.retrieveZeroCoins()
+      this.props.retrieveHistoryData()
       this.props.realtimeUpdates()
     }
   })

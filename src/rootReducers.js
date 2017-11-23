@@ -54,17 +54,21 @@ export const prices = (
         history: {...action.payload.data.data, ...state.history}
       }
     case 'SUCCESS_ZEROCOINS':
-      const pricesZeroCoinsData = action.payload.data
-      const restCoinPrices = pricesZeroCoinsData.reduce((restCoins, zeroCoin) => {
-        if (!state.items[zeroCoin.symbol]) {
-          restCoins[zeroCoin.symbol] = parseFloat(zeroCoin.price_usd)
-          return restCoins
-        }
-        return restCoins
-      }, {})
+      const restCoinPrices = action.payload.data
       return {
         ...state,
         items: {...state.items, ...restCoinPrices}
+      }
+    case 'SUCCESS_HISTORY_DATA':
+      const fetchedHistoryData = action.payload.data
+      const restHistory = Object.keys(fetchedHistoryData).reduce((restHistory, coinKey) => {
+        const normalizedCoinSymbol = coinKey.split('_')[0]
+        restHistory[normalizedCoinSymbol] = fetchedHistoryData[coinKey]
+        return restHistory
+      }, {})
+      return {
+        ...state,
+        history: {...state.history, ...restHistory}
       }
     case 'FIRE_TICKET':
       return {

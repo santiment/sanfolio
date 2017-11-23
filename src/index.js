@@ -26,7 +26,7 @@ const clients = {
   },
   marketCapClient: {
     client: axios.create({
-      baseURL: 'https://us-central1-cryptofolio-15d92.cloudfunctions.net/prices',
+      baseURL: 'https://us-central1-cryptofolio-15d92.cloudfunctions.net',
       responseType: 'json'
     })
   }
