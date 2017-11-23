@@ -34,6 +34,8 @@ Grep for TODO and FIXME, for not ready things...
 
   Updated history data api 
 
+  Made prices more readable 
+
 ## Tasks
 
 - [x] Layout desktop/mobile styles

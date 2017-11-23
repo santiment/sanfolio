@@ -18,7 +18,9 @@ const getChartDataFromHistory = (history = []) => {
     labels: ['', '', '', '', '', '', '', '', '', '', '', ''],
     datasets: [{
       strokeColor: COLOR,
-      data: history ? history.slice(0, 12) : []
+      data: history ? history.slice(0, 12).map(dayData => {
+        return dayData > 1 ? dayData.toFixed(2) : dayData.toFixed(8)
+      }) : []
     }]
   }
 }

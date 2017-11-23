@@ -13,7 +13,8 @@ import { cloud } from './cloud'
 import './Settings.css'
 
 const list = [
-  'Updated history api.'
+  'Updated history api.',
+  'Made prices more readable.'
 ]
 
 const Settings = ({user, onSignout}) => {
@@ -27,10 +28,10 @@ const Settings = ({user, onSignout}) => {
         </Button>
       </div>
       <div className='settings-footer'>
-        <Header as='h4'>Version: 0.2.2</Header>
+        <Header as='h4'>Version: 0.2.3</Header>
         <Message
           positive
-          header='CHANGELOG: 2017-11-22'
+          header='CHANGELOG: 2017-11-23'
           list={list}
         />
       </div>

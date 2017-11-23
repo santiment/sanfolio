@@ -1,6 +1,6 @@
 {
   "name": "hackathon-crypto",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "private": true,
   "dependencies": {
     "axios": "^0.17.1",
@@ -48,7 +48,8 @@
   "standard": {
     "ignore": [
       "src/registerServiceWorker.js",
-      "src/__tests__/smoke.spec.js"
+      "src/__tests__/smoke.spec.js",
+      "functions/node_modules/"
     ]
   }
 }
