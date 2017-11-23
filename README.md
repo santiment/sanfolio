@@ -28,6 +28,12 @@ We use **standard** for js lint and **stylelint** for css.
 
 Grep for TODO and FIXME, for not ready things...
 
+## CHANGELOG
+
+- 2017-11-23:
+
+  Updated history data api 
+
 ## Tasks
 
 - [x] Layout desktop/mobile styles
