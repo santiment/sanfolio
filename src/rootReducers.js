@@ -47,6 +47,7 @@ export const prices = (
   }, action) => {
   switch (action.type) {
     case 'SUCCESS_PRICES':
+      console.log(action.payload.data.data)
       return {
         ...state,
         isLoading: false,

@@ -12,20 +12,25 @@ const fetchMarketData = () => {
         body += d
       })
       res.on('end', () => {
-        const parsed = JSON.parse(body)
-        const prices = parsed.reduce((prices, coin) => {
-          prices[coin.symbol] = parseFloat(coin.price_usd)
-          return prices
-        }, {})
-        const tickers = parsed.reduce((tickers, coin) => {
-          tickers[coin.symbol] = coin
-          return tickers
-        }, {})
-        console.log('Data fetched from CMC.')
-        resolve({
-          prices,
-          tickers
-        })
+        try {
+          const parsed = JSON.parse(body)
+          const prices = parsed.reduce((prices, coin) => {
+            prices[coin.symbol] = parseFloat(coin.price_usd)
+            return prices
+          }, {})
+          const tickers = parsed.reduce((tickers, coin) => {
+            tickers[coin.symbol] = coin
+            return tickers
+          }, {})
+          console.log('Data fetched from CMC.')
+          resolve({
+            prices,
+            tickers
+          })
+        } catch (e) {
+          console.error(`Got error: ${e.message}`)
+          reject(e)
+        }
       })
       res.on('error', (e) => {
         console.error(`Got error: ${e.message}`)
@@ -43,9 +48,14 @@ const fetchSentimentData = () => {
         body += d
       })
       res.on('end', () => {
-        const parsed = JSON.parse(body)
-        console.log(parsed)
-        resolve(parsed)
+        try {
+          const parsed = JSON.parse(body)
+          console.log(parsed)
+          resolve(parsed)
+        } catch (e) {
+          console.error(`Got error: ${e.message}`)
+          reject(e)
+        }
       })
       res.on('error', (e) => {
         console.error(`Got error: ${e.message}`)
