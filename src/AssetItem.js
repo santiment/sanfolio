@@ -34,7 +34,11 @@ const propTypes = {
   })
 }
 
-const AssetItem = ({asset, flash}) => {
+const AssetItem = ({
+  asset,
+  flash,
+  handleClicked
+}) => {
   const chartData = getChartDataFromHistory(asset.history)
   const chartOptions = {
     responsive: true,
@@ -69,7 +73,9 @@ const AssetItem = ({asset, flash}) => {
     ? 'assets-item-details-price asset-item-details-price-flash'
     : 'assets-item-details-price'
   return (
-    <div className='assets-item'>
+    <div
+      className='assets-item'
+      onClick={handleClicked} >
       <div className='assets-item-title'>
         <AssetAvatar symbol={asset.title} />
         <strong>{asset.title}</strong>

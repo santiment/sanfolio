@@ -17,8 +17,15 @@ const fetchMarketData = () => {
           prices[coin.symbol] = parseFloat(coin.price_usd)
           return prices
         }, {})
-        console.log(prices)
-        resolve(prices)
+        const tickers = parsed.reduce((tickers, coin) => {
+          tickers[coin.symbol] = coin
+          return tickers
+        }, {})
+        console.log('Data fetched from CMC.')
+        resolve({
+          prices,
+          tickers
+        })
       })
       res.on('error', (e) => {
         console.error(`Got error: ${e.message}`)
@@ -60,15 +67,17 @@ const makeResponse = () => {
         const historyPr = fetchSentimentData()
         Promise.all([pricesPr, historyPr]).then(values => {
           const history = values[1]
-          const prices = values[0]
-          admin.database().ref('/last').update({history})
+          const {prices, tickers} = values[0]
           admin.database().ref('/last').update({
+            history,
+            tickers,
             prices,
             created: admin.database.ServerValue.TIMESTAMP
           })
           resolve({
-            prices: values[0],
-            history: values[1]
+            prices,
+            history,
+            tickers
           })
         }).catch(e => {
           console.log('error')
@@ -77,7 +86,8 @@ const makeResponse = () => {
       } else {
         resolve({
           prices: prevData.prices,
-          history: prevData.history
+          history: prevData.history,
+          tickers: prevData.tickers
         })
       }
     }).catch(e => {
@@ -101,6 +111,21 @@ exports.history = functions.https.onRequest((request, response) => {
   cors(request, response, () => {
     makeResponse().then(data => {
       response.send(data.history)
+    }).catch(e => {
+      response.status(500).send(e)
+    })
+  })
+})
+
+exports.tickers = functions.https.onRequest((request, response) => {
+  cors(request, response, () => {
+    makeResponse().then(data => {
+      if (request.query.symbol === undefined) {
+        response.send(data.tickers)
+      } else {
+        const symbol = request.query.symbol
+        response.send(data.tickers[symbol])
+      }
     }).catch(e => {
       response.status(500).send(e)
     })

@@ -188,6 +188,35 @@ export const settings = (state = {realtime: true}, action) => {
   }
 }
 
+export const assetDetail = (state = {
+  isLoading: true,
+  error: false,
+  detail: {}
+}, action) => {
+  switch (action.type) {
+    case 'LOADING_ASSET_DETAILS':
+      return {
+        ...state,
+        isLoading: true
+      }
+    case 'SUCCESS_ASSET_DETAILS':
+      return {
+        ...state,
+        isLoading: false,
+        detail: {
+          ...action.payload.data
+        }
+      }
+    case 'FAILED_ASSET_DETAILS':
+      return {
+        ...state,
+        error: true
+      }
+    default:
+      return state
+  }
+}
+
 export const user = (state = {
   isLoading: true,
   pending: false,
@@ -235,5 +264,6 @@ export default combineReducers({
   intentForm,
   portfolios,
   settings,
-  user
+  user,
+  assetDetail
 })

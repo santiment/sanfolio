@@ -1,0 +1,8 @@
+.page-header {
+  padding: 8px;
+  border-bottom: 1px solid #eee;
+}
+
+.page-header h3 {
+  margin: 0;
+}
