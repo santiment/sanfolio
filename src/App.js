@@ -17,6 +17,7 @@ import PortfolioPage from './PorfoliosPage'
 import SettingsPage from './Settings'
 import Login from './Login'
 import Dashboard from './Dashboard'
+import ErrorBoundary from './ErrorBoundary'
 import './App.css'
 
 const ProtectedRoute = ({
@@ -42,14 +43,16 @@ export const App = ({
   <div className='wrapper'>
     <div className='app'>
       <div className='container'>
-        <Switch>
-          <ProtectedRoute user={user} exact path={'/invest'} component={IntentForm} />
-          <ProtectedRoute user={user} exact path='/portfolios' component={PortfolioPage} />
-          <ProtectedRoute user={user} path={'/portfolios/:name'} component={PortfolioPage} />
-          <ProtectedRoute user={user} exact path={'/settings'} component={SettingsPage} />
-          <Route path={'/login'} component={Login} />
-          <Route exact path={'/'} component={Dashboard} />
-        </Switch>
+        <ErrorBoundary>
+          <Switch>
+            <ProtectedRoute user={user} exact path={'/invest'} component={IntentForm} />
+            <ProtectedRoute user={user} exact path='/portfolios' component={PortfolioPage} />
+            <ProtectedRoute user={user} path={'/portfolios/:name'} component={PortfolioPage} />
+            <ProtectedRoute user={user} exact path={'/settings'} component={SettingsPage} />
+            <Route path={'/login'} component={Login} />
+            <Route exact path={'/'} component={Dashboard} />
+          </Switch>
+        </ErrorBoundary>
       </div>
       <div className='menu'>
         <Link
