@@ -39,10 +39,6 @@ class IntentAmount extends Component {
     portfolioData: {}
   }
 
-  componentWillReceiveProps(nextProps) {
-    //console.log(nextProps); 
-  }
-
   handleChangeMoney = e => {
     this.setState({money: e.target.value})
   }

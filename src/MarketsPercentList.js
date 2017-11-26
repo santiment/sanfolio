@@ -73,7 +73,6 @@ export const MarketsPercentList = ({
 }
 
 const mapStateToProps = (state, ownProps) => {
-  console.log('markets: ', ownProps.markets)
   const money = state.intentForm.money
   const prices = state.prices.items
   const markets = ownProps.markets

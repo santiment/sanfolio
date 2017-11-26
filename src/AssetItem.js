@@ -7,17 +7,19 @@ import {
   withState
 } from 'recompose'
 import { Line } from 'react-chartjs-2'
+import moment from 'moment'
 import AssetAvatar from './AssetIcon'
 import './AssetItem.css'
 import { formatNumber } from './utils/formatting'
 
-const COLOR = '#FF7300'
-
 const getChartDataFromHistory = (history = []) => {
   return {
-    labels: ['', '', '', '', '', '', '', '', '', '', '', ''],
+    labels: ['', '', '', '', '', '', '', '', '', '', '', 'today']
+      .map((el, index, arr) => {
+        return moment().subtract(arr.length - 1 - index, 'days').format('DD MMM')
+      }),
     datasets: [{
-      strokeColor: COLOR,
+      fill: false,
       data: history ? history.slice(0, 12).map(dayData => {
         return dayData > 1 ? dayData.toFixed(2) : dayData.toFixed(8)
       }) : []
@@ -47,9 +49,26 @@ const AssetItem = ({
     scaleShowLabels: false,
     datasetFill: false,
     scaleFontSize: 0,
-    animation: false,
+    animation: {
+      easing: 'easeOutQuart'
+    },
     legend: {
       display: false
+    },
+    tooltips: {
+      callbacks: {
+        label: tooltipItem => {
+          return tooltipItem.yLabel
+        }
+      }
+    },
+    layout: {
+      padding: {
+        left: 5,
+        right: 5,
+        top: 5,
+        bottom: 5
+      }
     },
     scales: {
       yAxes: [{
@@ -62,6 +81,9 @@ const AssetItem = ({
         }
       }],
       xAxes: [{
+        ticks: {
+          display: false
+        },
         gridLines: {
           drawBorder: false,
           display: false
@@ -89,12 +111,11 @@ const AssetItem = ({
       <div className='assets-item-graph'>
         {asset.history
           ? <Line
-            height={70}
-            width={150}
+            height={60}
+            width={155}
             data={chartData}
             options={chartOptions}
             style={{ transition: 'opacity 0.25s ease' }}
-            redraw
           />
           : <div>---</div>}
       </div>
