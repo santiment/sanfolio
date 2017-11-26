@@ -12,6 +12,12 @@ import {
 import { cloud } from './cloud'
 import './Settings.css'
 
+const lastlist = [
+  'Added asset detail information.',
+  'Added dashboard title.',
+  'Some fixes...'
+]
+
 const list = [
   'Updated history api.',
   'Made prices more readable.'
@@ -28,7 +34,12 @@ const Settings = ({user, onSignout}) => {
         </Button>
       </div>
       <div className='settings-footer'>
-        <Header as='h4'>Version: 0.2.3</Header>
+        <Header as='h4'>Version: 0.2.4</Header>
+        <Message
+          positive
+          header='CHANGELOG: 2017-11-24'
+          list={lastlist}
+        />
         <Message
           positive
           header='CHANGELOG: 2017-11-23'

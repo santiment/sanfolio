@@ -12,12 +12,11 @@ import {
   Redirect,
   NavLink as Link
 } from 'react-router-dom'
-import Spinner from 'react-spinkit'
-import AssetList from './AssetList'
 import IntentForm from './IntentForm'
 import PortfolioPage from './PorfoliosPage'
 import SettingsPage from './Settings'
 import Login from './Login'
+import Dashboard from './Dashboard'
 import './App.css'
 
 const ProtectedRoute = ({
@@ -38,15 +37,7 @@ const ProtectedRoute = ({
 )
 
 export const App = ({
-  markets,
-  loading,
-  hasError,
-  loadingPrices,
-  loadingRestPrices,
-  prices,
-  user,
-  portfolios,
-  history
+  user
 }) => (
   <div className='wrapper'>
     <div className='app'>
@@ -57,25 +48,7 @@ export const App = ({
           <ProtectedRoute user={user} path={'/portfolios/:name'} component={PortfolioPage} />
           <ProtectedRoute user={user} exact path={'/settings'} component={SettingsPage} />
           <Route path={'/login'} component={Login} />
-          <Route exact path={'/'} render={() => (
-            <div>
-              {loading || loadingRestPrices || loadingPrices
-                ? <div>
-                  <Spinner name='line-scale' />
-                </div>
-                : <div className='app-inner'>
-                  <AssetList
-                    markets={markets}
-                    history={history}
-                    prices={prices} />
-                  {portfolios.length < 4 &&
-                  <Link className='app-btn-invest' to={'/invest'}>
-                    Invest money
-                  </Link>}
-                </div>
-              }
-            </div>
-          )} />
+          <Route exact path={'/'} component={Dashboard} />
         </Switch>
       </div>
       <div className='menu'>
@@ -105,15 +78,7 @@ export const App = ({
 
 const mapStateToProps = state => {
   return {
-    markets: state.markets.items,
-    loading: state.markets.isLoading,
-    hasError: state.markets.error,
-    loadingPrices: state.prices.isLoading,
-    loadingRestPrices: state.zerocoins.isLoading,
-    prices: state.prices.items,
-    portfolios: state.portfolios.items,
-    user: state.user,
-    history: state.prices.history
+    user: state.user
   }
 }
 

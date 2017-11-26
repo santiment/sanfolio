@@ -1,0 +1,28 @@
+.asset-detail-header {
+  padding: 8px 15px;
+  width: 80%;
+  margin: 0 auto;
+  margin-bottom: 0.75em;
+}
+
+.asset-detail-item {
+  background-color: white;
+  border: 1px solid white;
+  border-radius: 2px;
+  color: black;
+  padding: 8px 15px;
+}
+
+.asset-detail-item-row {
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  margin: 0 auto;
+  margin-bottom: 0.75em;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 5px;
+}
+
+.asset-detail-item-row-body {
+  color: #3e3e3e;
+}
