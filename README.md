@@ -44,23 +44,6 @@ Grep for TODO and FIXME, for not ready things...
 
   Made prices more readable 
 
-## Tasks
-
-- [x] Layout desktop/mobile styles
-- [x] Currency format
-- [x] Sync data with coinmarket:REST
-- [x] Sync data with coinmarket:SOCKETS
-- [x] Count % of market for every asset
-- [x] Add mobile menu
-- [x] Input Income Money + Open new route with personal folio
-- [x] Draw graphs
-- [x] Save new Portfolio with coins data (local)
-- [x] Save new Portfolio with coins data (firebase)
-- [x] Update date on portfolio page, when ticket fires
-- [ ] Added header with personal portfolios stats on the top of the dashboard
-    page
-- [x] Added icons
-
 ## Roadmap
 
 - [x] Sync local app data with cloud
