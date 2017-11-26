@@ -72,6 +72,10 @@ cloud.auth().onAuthStateChanged((user) => {
       type: 'SUCCESS_LOGIN',
       user: _user
     })
+    Raven.setUserContext({
+      id: _user.uid,
+      email: _user.email
+    })
     db.ref('portfolios').child(user.uid).once('value', (snapshot) => {
       let portfolios = {}
       snapshot.forEach(data => {
