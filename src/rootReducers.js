@@ -114,6 +114,11 @@ export const marketsPercentList = (state = {data: {}}, action) => {
 
 export const portfolios = (state = {selected: 0, items: []}, action) => {
   switch (action.type) {
+    case 'APP_LOADING':
+      return {
+        selected: 0,
+        items: []
+      }
     case 'CREATE_NEW_PORTFOLIO':
       const last = state.items.length
       return {
@@ -125,7 +130,8 @@ export const portfolios = (state = {selected: 0, items: []}, action) => {
             url: action.url,
             data: action.data,
             money: action.money,
-            firstMoney: action.firstMoney
+            firstMoney: action.firstMoney,
+            saved: action.saved
           }]
       }
     case 'SUCCESS_FETCHED_PORTFOLIOS':

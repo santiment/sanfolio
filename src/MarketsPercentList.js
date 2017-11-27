@@ -65,7 +65,7 @@ export const MarketsPercentList = ({
         <Button
           onClick={() => onListApproved(data)}
           color='green'>
-          Confirm balanced investing schema
+          Confirm
         </Button>
       </div>
     </div>

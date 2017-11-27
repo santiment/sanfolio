@@ -227,25 +227,27 @@ const mapDispatchToProps = dispatch => {
       })
     },
     createPortfolio: (name, data, money, url) => {
+      const user = cloud.auth().currentUser
+      if (user && user.uid) {
+        db.ref('portfolios').child(user.uid).push({
+          name,
+          data,
+          url,
+          firstMoney: money,
+          createdAt: cloud.database.ServerValue.TIMESTAMP
+        })
+      }
       dispatch({
         type: 'CREATE_NEW_PORTFOLIO',
         name,
         data,
         money,
         firstMoney: money,
-        url
+        url,
+        saved: user && !!user.uid
       })
       dispatch({
         type: 'RESET_INTENT_FORM'
-      })
-      // FIXME:
-      const uid = cloud.auth().currentUser.uid
-      db.ref('portfolios').child(uid).push({
-        name,
-        data,
-        url,
-        firstMoney: money,
-        createdAt: cloud.database.ServerValue.TIMESTAMP
       })
     }
   }

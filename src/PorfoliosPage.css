@@ -19,3 +19,11 @@
   right: 2%;
   top: 10%;
 }
+
+.portfolios-navigation {
+  margin-top: 1em !important;
+  padding-top: 1em !important;
+}
+
+.portfolio-page-auth-message {
+}

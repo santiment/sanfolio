@@ -11,6 +11,7 @@
 }
 
 .markets-percent-list {
+  padding-bottom: 1em;
   text-align: left;
   width: 60%;
   margin: 0 auto;
@@ -28,5 +29,7 @@
 }
 
 .markets-percent-list-control button:last-child {
-  flex: 2;
+  flex: 1;
+  margin-left: 20px;
+  margin-right: 0;
 }

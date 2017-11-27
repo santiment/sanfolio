@@ -8,7 +8,8 @@ import {
   Statistic,
   List,
   Divider,
-  Button
+  Button,
+  Message
 } from 'semantic-ui-react'
 import { db, cloud } from './cloud'
 import moment from 'moment'
@@ -98,6 +99,16 @@ export class PortfolioPage extends Component {
           selectedUrl={selectedPortfolio.url}
           portfolios={portfolios} />
         <br />
+        {selectedPortfolio.hasOwnProperty('saved') && !selectedPortfolio.saved &&
+          <Message
+            className='portfolio-page-auth-message'
+            attached='top'
+            warning >
+            <Message.Header>Unsaved</Message.Header>
+            <Link to={'/login'}>
+              Sign In
+            </Link>
+          </Message> }
         <Statistic
           label='Current money'
           value={formatNumber(money, 'USD')} />
@@ -133,9 +144,9 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     deletePortfolio: (url, id) => {
-      const uid = cloud.auth().currentUser.uid
-      if (id) {
-        db.ref('portfolios').child(uid).child(id).remove()
+      const user = cloud.auth().currentUser
+      if (user && id) {
+        db.ref('portfolios').child(user.uid).child(id).remove()
       }
       dispatch({
         type: 'REMOVE_SELECTED_PORTFOLIO',

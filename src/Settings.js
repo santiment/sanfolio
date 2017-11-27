@@ -4,6 +4,9 @@ import {
   Message,
   Header
 } from 'semantic-ui-react'
+import {
+  Link
+} from 'react-router-dom'
 import { connect } from 'react-redux'
 import {
   pure,
@@ -19,6 +22,7 @@ const list = [
 ]
 
 const lastlist = [
+  'Added anonymous usage.',
   'Fixed sorting of portfolio list.',
   'Added error tracking and bug report form',
   'Some fixes...'
@@ -28,11 +32,21 @@ const Settings = ({user, onSignout}) => {
   return (
     <div className='Settings'>
       <div className='settings-main'>
-        <h3>Current user is {user.user.displayName || user.user.email}</h3>
-        <Button
-          onClick={onSignout}>
-          Sign out
-        </Button>
+        {user.user.email
+          ? <div>
+            <h3>Current user is {user.user.displayName || user.user.email}</h3>
+            <Button
+              onClick={onSignout}>
+              Sign out
+            </Button>
+          </div>
+          : <Message warning>
+            <Message.Header>You are anonymous user.</Message.Header>
+            If you want to save your data, create an account.&nbsp;
+            <Link to={'/login'}>
+              Sign In
+            </Link>
+          </Message>}
       </div>
       <div className='settings-footer'>
         <Header as='h4'>Version: {process.env.REACT_APP_VERSION}</Header>

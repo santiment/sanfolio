@@ -45,10 +45,10 @@ export const App = ({
       <div className='container'>
         <ErrorBoundary>
           <Switch>
-            <ProtectedRoute user={user} exact path={'/invest'} component={IntentForm} />
-            <ProtectedRoute user={user} exact path='/portfolios' component={PortfolioPage} />
-            <ProtectedRoute user={user} path={'/portfolios/:name'} component={PortfolioPage} />
-            <ProtectedRoute user={user} exact path={'/settings'} component={SettingsPage} />
+            <Route user={user} exact path={'/invest'} component={IntentForm} />
+            <Route user={user} exact path='/portfolios' component={PortfolioPage} />
+            <Route user={user} path={'/portfolios/:name'} component={PortfolioPage} />
+            <Route user={user} exact path={'/settings'} component={SettingsPage} />
             <Route path={'/login'} component={Login} />
             <Route exact path={'/'} component={Dashboard} />
           </Switch>

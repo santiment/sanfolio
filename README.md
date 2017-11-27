@@ -32,6 +32,8 @@ Grep for TODO and FIXME, for not ready things...
 
 - 2017-11-26:
 
+  Added anonymous usage
+
   Fixed sorting of portfolio list
 
 - 2017-11-26:

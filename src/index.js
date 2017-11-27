@@ -59,6 +59,49 @@ const store = createStore(reducers,
   composeWithDevTools(applyMiddleware(...middleware))
 )
 
+// FIXME: refactor this place
+// TODO: added message for user, if portfolio exists or counts more than 4.
+// Save current anonymus portfolios
+// Fetch the user portfolios from cloud
+// Check ofc, if the user has not the same name portfolio
+// and counts less than 4 portfolios on user account
+const saveAndFetchPortfolios = async (uid, store) => {
+  const items = store.getState().portfolios.items
+  await db.ref('portfolios').child(uid).once('value', async (snapshot) => {
+    let portfolios = []
+    snapshot.forEach(data => {
+      portfolios.push(data.val())
+    })
+
+    if (portfolios.length < 4) {
+      for (let item of items) {
+        const sameUrlFolio = portfolios.find(el => {
+          return el.url === item.url
+        })
+        if (!sameUrlFolio) {
+          await db.ref('portfolios').child(uid).push({
+            name: item.name,
+            data: item.data,
+            url: item.url,
+            firstMoney: item.money,
+            createdAt: cloud.database.ServerValue.TIMESTAMP
+          })
+        }
+      }
+    }
+  })
+  await db.ref('portfolios').child(uid).once('value', (snapshot) => {
+    let portfolios = {}
+    snapshot.forEach(data => {
+      portfolios[`${data.key}`] = data.val()
+    })
+    store.dispatch({
+      type: 'SUCCESS_FETCHED_PORTFOLIOS',
+      portfolios
+    })
+  })
+}
+
 cloud.auth().onAuthStateChanged((user) => {
   if (!user) {
     store.dispatch({
@@ -72,19 +115,10 @@ cloud.auth().onAuthStateChanged((user) => {
       type: 'SUCCESS_LOGIN',
       user: _user
     })
+    saveAndFetchPortfolios(user.uid, store)
     Raven.setUserContext({
       id: _user.uid,
       email: _user.email
-    })
-    db.ref('portfolios').child(user.uid).once('value', (snapshot) => {
-      let portfolios = {}
-      snapshot.forEach(data => {
-        portfolios[`${data.key}`] = data.val()
-      })
-      store.dispatch({
-        type: 'SUCCESS_FETCHED_PORTFOLIOS',
-        portfolios
-      })
     })
   }
 })
