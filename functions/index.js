@@ -1,66 +1,54 @@
 const functions = require('firebase-functions')
 const cors = require('cors')({origin: true})
-const https = require('https')
+const axios = require('axios')
 const admin = require('firebase-admin')
 admin.initializeApp(functions.config().firebase)
 
+// console.log stores all logs in Google Cloud logs
+const handleError = error => {
+  if (error.response) {
+    console.log(error.response.data)
+    console.log(error.response.status)
+    console.log(error.response.headers)
+  } else if (error.request) {
+    console.log(error.request)
+  } else {
+    console.log('Error', error.message)
+  }
+  console.log(error.config)
+}
+
 const fetchMarketData = () => {
   return new Promise((resolve, reject) => {
-    https.get('https://api.coinmarketcap.com/v1/ticker/', res => {
-      let body = ''
-      res.on('data', d => {
-        body += d
+    axios.get('https://api.coinmarketcap.com/v1/ticker/').then(res => {
+      const parsed = res.data
+      const prices = parsed.reduce((prices, coin) => {
+        prices[coin.symbol] = parseFloat(coin.price_usd)
+        return prices
+      }, {})
+      const tickers = parsed.reduce((tickers, coin) => {
+        tickers[coin.symbol] = coin
+        return tickers
+      }, {})
+      resolve({
+        prices,
+        tickers
       })
-      res.on('end', () => {
-        try {
-          const parsed = JSON.parse(body)
-          const prices = parsed.reduce((prices, coin) => {
-            prices[coin.symbol] = parseFloat(coin.price_usd)
-            return prices
-          }, {})
-          const tickers = parsed.reduce((tickers, coin) => {
-            tickers[coin.symbol] = coin
-            return tickers
-          }, {})
-          console.log('Data fetched from CMC.')
-          resolve({
-            prices,
-            tickers
-          })
-        } catch (e) {
-          console.error(`Got error: ${e.message}`)
-          reject(e)
-        }
-      })
-      res.on('error', (e) => {
-        console.error(`Got error: ${e.message}`)
-        reject(e)
-      })
+    }).catch(error => {
+      reject(error)
+      handleError(error)
     })
   })
 }
 
 const fetchSentimentData = () => {
   return new Promise((resolve, reject) => {
-    https.get('https://api.santiment.net/api/daily_prices?tickers=MIOTA,QTUM,HSR,NEO,EOS,OMG,ADA,XLM,USDT', res => {
-      let body = ''
-      res.on('data', d => {
-        body += d
-      })
-      res.on('end', () => {
-        try {
-          const parsed = JSON.parse(body)
-          console.log(parsed)
-          resolve(parsed)
-        } catch (e) {
-          console.error(`Got error: ${e.message}`)
-          reject(e)
-        }
-      })
-      res.on('error', (e) => {
-        console.error(`Got error: ${e.message}`)
-        reject(e)
-      })
+    axios.get('https://api.santiment.net/api/daily_prices?tickers=MIOTA,QTUM,HSR,NEO,EOS,OMG,ADA,XLM,USDT').then(res => {
+      const parsed = res.data
+      resolve(parsed)
+    }).catch(error => {
+      reject(error)
+      handleError(error)
     })
   })
 }
