@@ -9,7 +9,8 @@ import toJson from 'enzyme-to-json'
 import Adapter from 'enzyme-adapter-react-16'
 import {
   PortfolioPage,
-  PortfoliosNaviagation
+  PortfoliosNaviagation,
+  PortfolioList
 } from '../PorfoliosPage'
 configure({ adapter: new Adapter() })
 
@@ -54,13 +55,39 @@ describe('PortfolioPage', () => {
     expect(wrapper.length).toEqual(1)
   })
 
-  describe('PortfoliosNaviagation', () => {
+  describe('PortfoliosNavigation', () => {
     it('should render correctly', () => {
       const navWrapper = mount(
         <MemoryRouter>
           <PortfoliosNaviagation portfolios={portfolios} />
         </MemoryRouter>)
       expect(navWrapper.find('ListHeader a').first().text()).toEqual(portfolios.items[0].name)
+    })
+  })
+
+  describe('PortfolioList', () => {
+    it('should render list sorted by money correctly', () => {
+      const prices = {
+        BTC: 12,
+        ETH: 10,
+        BCH: 5
+      }
+      const data = {
+        BTC: 0.002,
+        ETH: 0.2,
+        BCH: 200
+      }
+      const portfolioListWrapper = shallow(<PortfolioList
+        prices={prices}
+        data={data}
+      />)
+      expect(toJson(portfolioListWrapper)).toMatchSnapshot()
+      const items = portfolioListWrapper.find('.PortfolioList-item')
+      const getItemSymbol = item => item.childAt(0).text()
+      expect(items.length).toBe(3)
+      expect(getItemSymbol(items.first())).toBe('BCH')
+      expect(getItemSymbol(items.at(1))).toBe('ETH')
+      expect(getItemSymbol(items.last())).toBe('BTC')
     })
   })
 })

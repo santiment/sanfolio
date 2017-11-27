@@ -1,5 +1,54 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`PortfolioPage PortfolioList should render list sorted by money correctly 1`] = `
+<div
+  className="PortfolioList"
+>
+  <div
+    className="PortfolioList-item"
+    key="0"
+  >
+    <div>
+      BCH
+    </div>
+    <div>
+      200.00000000
+    </div>
+    <div>
+      $1,000.00
+    </div>
+  </div>
+  <div
+    className="PortfolioList-item"
+    key="1"
+  >
+    <div>
+      ETH
+    </div>
+    <div>
+      0.20000000
+    </div>
+    <div>
+      $2.00
+    </div>
+  </div>
+  <div
+    className="PortfolioList-item"
+    key="2"
+  >
+    <div>
+      BTC
+    </div>
+    <div>
+      0.00200000
+    </div>
+    <div>
+      $0.02
+    </div>
+  </div>
+</div>
+`;
+
 exports[`PortfolioPage should redirect to invest page, if portfolios items is empty 1`] = `
 <Router
   history={

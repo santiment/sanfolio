@@ -45,13 +45,20 @@ export const PortfoliosNaviagation = ({portfolios, selectedUrl}) => {
 }
 
 export const PortfolioList = ({prices, data}) => {
+  const sortedData = Object.keys(data)
+    .map(symbol => {
+      const price = getPrice(symbol, prices) * data[symbol]
+      return [symbol, data[symbol], price]
+    }).sort((a, b) => {
+      return b[2] - a[2]
+    })
   return (
     <div className='PortfolioList'>
-      {Object.keys(data).map((coinKey, index) => (
+      {sortedData.map((coin, index) => (
         <div className='PortfolioList-item' key={index}>
-          <div>{coinKey}</div>
-          <div>{data[coinKey].toFixed(8)}</div>
-          <div>{formatNumber(getPrice(coinKey, prices) * data[coinKey], 'USD')}</div>
+          <div>{coin[0]}</div>
+          <div>{data[coin[0]].toFixed(8)}</div>
+          <div>{formatNumber(getPrice(coin[0], prices) * data[coin[0]], 'USD')}</div>
         </div>
       ))}
     </div>
