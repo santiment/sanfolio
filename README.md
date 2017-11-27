@@ -32,6 +32,10 @@ Grep for TODO and FIXME, for not ready things...
 
 - 2017-11-26:
 
+  Fixed sorting of portfolio list
+
+- 2017-11-26:
+
   Added Error boundary + Report Form
 
 - 2017-11-24:
