@@ -63,7 +63,7 @@ export const prices = (
       const fetchedHistoryData = action.payload.data
       const restHistory = Object.keys(fetchedHistoryData).reduce((restHistory, coinKey) => {
         const normalizedCoinSymbol = coinKey.split('_')[0]
-        restHistory[normalizedCoinSymbol] = fetchedHistoryData[coinKey]
+        restHistory[normalizedCoinSymbol] = fetchedHistoryData[coinKey].reverse()
         return restHistory
       }, {})
       return {
