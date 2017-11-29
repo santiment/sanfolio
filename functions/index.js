@@ -43,7 +43,7 @@ const fetchMarketData = () => {
 
 const fetchSentimentData = () => {
   return new Promise((resolve, reject) => {
-    axios.get('https://api.santiment.net/api/daily_prices?tickers=MIOTA,QTUM,HSR,NEO,EOS,OMG,ADA,XLM,USDT').then(res => {
+    axios.get('https://api.santiment.net/api/daily_prices?tickers=MIOTA,BTC,BCH,BTG,QTUM,HSR,NEO,EOS,OMG,ADA,XLM,USDT').then(res => {
       const parsed = res.data
       resolve(parsed)
     }).catch(error => {
