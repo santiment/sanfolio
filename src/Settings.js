@@ -41,8 +41,10 @@ const Settings = ({user, onSignout}) => {
             </Button>
           </div>
           : <Message warning>
-            <Message.Header>You are anonymous user.</Message.Header>
-            If you want to save your data, create an account.&nbsp;
+            <Message.Header>Welcome anonymous user</Message.Header>
+            <p>
+              If you wish to save your generated portfolio data, please sign in before.&nbsp;
+            </p>
             <Link to={'/login'}>
               Sign In
             </Link>

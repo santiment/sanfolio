@@ -110,16 +110,18 @@ class IntentAmount extends Component {
     }
     return (
       <div className='IntentForm'>
+        {money !== 0 &&
         <Statistic 
           label='Current money'
-          value={formatNumber(money, 'USD')} />
+          value={formatNumber(money, 'USD')} />}
 
         {money === 0 &&
         <Message>
           <Message.Header>
-            How much money you wish to invest in the crypto world?
+            Create a new portfolio
           </Message.Header>
-          <br />
+          <p>Enter below the amount in US Dollars that 
+            you wish to create a diversified portfolio for.</p>
           <Input 
             type='number'
             onChange={this.handleChangeMoney}
