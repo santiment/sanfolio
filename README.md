@@ -30,6 +30,10 @@ Grep for TODO and FIXME, for not ready things...
 
 ## CHANGELOG
 
+- 2017-12-8:
+
+  Some fixes. This repo is open source now. :tada:
+
 - 2017-11-26:
 
   Added anonymous usage
@@ -61,4 +65,4 @@ Grep for TODO and FIXME, for not ready things...
 - [ ] Update configuration of any portfolios
 - [ ] Stats
 - [ ] AUTH with SAN
-- [ ] PWA
+- [x] PWA

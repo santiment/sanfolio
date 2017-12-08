@@ -20,23 +20,6 @@ import Dashboard from './Dashboard'
 import ErrorBoundary from './ErrorBoundary'
 import './App.css'
 
-const ProtectedRoute = ({
-  user = {},
-  component: Component,
-  ...rest
-}) => (
-  <Route {...rest} render={props => (
-    user.user && user.user.uid ? (
-      <Component {...props} />
-    ) : (
-      <Redirect to={{
-        pathname: '/login',
-        state: { from: props.location }
-      }} />
-    )
-  )} />
-)
-
 export const App = ({
   user
 }) => (

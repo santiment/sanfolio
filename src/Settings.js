@@ -16,16 +16,14 @@ import { cloud } from './cloud'
 import './Settings.css'
 
 const list = [
-  'Added asset detail information.',
-  'Added dashboard title.',
-  'Some fixes...'
-]
-
-const lastlist = [
   'Added anonymous usage.',
   'Fixed sorting of portfolio list.',
   'Added error tracking and bug report form',
   'Some fixes...'
+]
+
+const lastlist = [
+  'Some fixes. This repo is open source now.'
 ]
 
 const Settings = ({user, onSignout}) => {
@@ -43,7 +41,7 @@ const Settings = ({user, onSignout}) => {
           : <Message warning>
             <Message.Header>Welcome anonymous user</Message.Header>
             <p>
-              If you wish to save your generated portfolio data, please sign in before.&nbsp;
+              If you wish to save your generated portfolio data, please sign in below.&nbsp;
             </p>
             <Link to={'/login'}>
               Sign In
@@ -54,12 +52,12 @@ const Settings = ({user, onSignout}) => {
         <Header as='h4'>Version: {process.env.REACT_APP_VERSION}</Header>
         <Message
           positive
-          header='CHANGELOG: 2017-11-27'
+          header='CHANGELOG: 2017-12-08'
           list={lastlist}
         />
         <Message
           positive
-          header='CHANGELOG: 2017-11-24'
+          header='CHANGELOG: 2017-11-27'
           list={list}
         />
       </div>
